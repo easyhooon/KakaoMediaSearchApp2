@@ -52,3 +52,7 @@ dependencies {
     implementation(libs.bundles.retrofit)
     implementation(libs.kotlinx.datetime)
 }
+
+secrets {
+    defaultPropertiesFileName = "secrets.defaults.properties"
+}
