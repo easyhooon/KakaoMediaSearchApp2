@@ -39,18 +39,28 @@ android {
 dependencies {
     implementation(project(":domain"))
 
-    implementation(libs.core.ktx)
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit4)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.serialization.core)
+    implementation(libs.kotlinx.datetime)
+
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.datastore.preferences)
+
+    testImplementation(libs.test.junit4)
+    androidTestImplementation(libs.test.ext.junit4)
+    androidTestImplementation(libs.test.espresso.core)
+
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.slf4j.android)
+    implementation(libs.ktor.client.logging.jvm)
+    implementation(libs.ktor.client.json)
+    implementation(libs.ktor.serialization)
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
-
-    implementation(libs.bundles.retrofit)
-    implementation(libs.kotlinx.datetime)
 }
 
 secrets {
