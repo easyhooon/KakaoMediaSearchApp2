@@ -1,10 +1,7 @@
 package com.kenshi.presentation.adapter.viewholder
 
-import android.graphics.Typeface
 import android.text.Html
-import android.text.Spannable
 import android.text.SpannableString
-import android.text.style.StyleSpan
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.kenshi.presentation.databinding.ItemBlogBinding
@@ -29,25 +26,6 @@ class BlogSearchViewHolder(
     }
 
     private fun makeSearchTextBold(text: String): SpannableString {
-        val spannedText = Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT)
-        val spannableString = SpannableString(spannedText)
-
-        val pattern = "<b>(.*?)</b>".toRegex()
-        val matches = pattern.findAll(text)
-
-        for (match in matches) {
-            val startIndex = match.range.first
-            val endIndex = match.range.last
-
-            if (startIndex < spannableString.length && endIndex < spannableString.length) {
-                spannableString.setSpan(
-                    StyleSpan(Typeface.BOLD),
-                    startIndex,
-                    endIndex - 6,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-            }
-        }
-        return spannableString
+        return SpannableString(Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT))
     }
 }
