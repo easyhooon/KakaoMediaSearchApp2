@@ -2,7 +2,10 @@ package com.kenshi.presentation.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.paging.LoadState
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.kenshi.presentation.R
 import com.kenshi.presentation.adapter.SearchLoadStateAdapter
 import com.kenshi.presentation.adapter.VideoSearchAdapter
@@ -12,6 +15,7 @@ import com.kenshi.presentation.util.repeatOnStarted
 import com.kenshi.presentation.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class VideoSearchListFragment :
@@ -34,21 +38,40 @@ class VideoSearchListFragment :
     }
 
     private fun initView() {
-        binding.rvVideoSearch.adapter = videoSearchAdapter.withLoadStateFooter(
-            footer = SearchLoadStateAdapter(
-                videoSearchAdapter::retry
+        binding.rvVideoSearch.apply {
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    DividerItemDecoration.VERTICAL
+                )
             )
-        )
+            adapter = videoSearchAdapter.withLoadStateFooter(
+                footer = SearchLoadStateAdapter(
+                    videoSearchAdapter::retry
+                )
+            )
+        }
     }
 
     private fun initListener() {
+        videoSearchAdapter.addLoadStateListener { combinedLoadStates ->
+            val loadState = combinedLoadStates.source
+            val isListEmpty = videoSearchAdapter.itemCount < 1 &&
+                    loadState.refresh is LoadState.NotLoading &&
+                    loadState.append.endOfPaginationReached
 
+            binding.tvNoResult.isVisible = isListEmpty
+            binding.rvVideoSearch.isVisible = !isListEmpty
+            binding.pbVideoSearch.isVisible = loadState.refresh is LoadState.Loading
+        }
     }
 
     private fun initObserver() {
         repeatOnStarted {
-            viewModel.searchVideos.collectLatest {
-                videoSearchAdapter.submitData(it)
+            launch {
+                viewModel.searchVideos.collectLatest {
+                    videoSearchAdapter.submitData(it)
+                }
             }
         }
     }

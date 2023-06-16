@@ -2,7 +2,10 @@ package com.kenshi.presentation.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.paging.LoadState
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.kenshi.presentation.R
 import com.kenshi.presentation.adapter.ImageSearchAdapter
 import com.kenshi.presentation.adapter.SearchLoadStateAdapter
@@ -12,6 +15,7 @@ import com.kenshi.presentation.util.repeatOnStarted
 import com.kenshi.presentation.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ImageSearchListFragment :
@@ -34,21 +38,40 @@ class ImageSearchListFragment :
     }
 
     private fun initView() {
-        binding.rvImageSearch.adapter = imageSearchAdapter.withLoadStateFooter(
-            footer = SearchLoadStateAdapter(
-                imageSearchAdapter::retry
+        binding.rvImageSearch.apply {
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    DividerItemDecoration.VERTICAL
+                )
             )
-        )
+            adapter = imageSearchAdapter.withLoadStateFooter(
+                footer = SearchLoadStateAdapter(
+                    imageSearchAdapter::retry
+                )
+            )
+        }
     }
 
     private fun initListener() {
+        imageSearchAdapter.addLoadStateListener { combinedLoadStates ->
+            val loadState = combinedLoadStates.source
+            val isListEmpty = imageSearchAdapter.itemCount < 1 &&
+                    loadState.refresh is LoadState.NotLoading &&
+                    loadState.append.endOfPaginationReached
 
+            binding.tvNoResult.isVisible = isListEmpty
+            binding.rvImageSearch.isVisible = !isListEmpty
+            binding.pbImageSearch.isVisible = loadState.refresh is LoadState.Loading
+        }
     }
 
     private fun initObserver() {
         repeatOnStarted {
-            viewModel.searchImages.collectLatest {
-                imageSearchAdapter.submitData(it)
+            launch {
+                viewModel.searchImages.collectLatest {
+                    imageSearchAdapter.submitData(it)
+                }
             }
         }
     }

@@ -11,7 +11,8 @@
         android:icon="@drawable/ic_100tb"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.KakaoMediaSearchApp2">
+        android:theme="@style/Theme.KakaoMediaSearchApp2"
+        android:usesCleartextTraffic="true">
 
         <provider
             android:name="androidx.startup.InitializationProvider"

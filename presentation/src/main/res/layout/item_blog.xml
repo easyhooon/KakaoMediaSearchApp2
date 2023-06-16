@@ -6,13 +6,14 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_blog_thumbnail"
-        android:layout_width="60dp"
-        android:layout_height="90dp"
+        android:layout_width="180dp"
+        android:layout_height="120dp"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/ShapeAppearance.SmallComponent" />
 
     <TextView
         android:id="@+id/tv_blog_title"
@@ -44,7 +45,7 @@
 
     <TextView
         android:id="@+id/tv_blog_name"
-        style="@style/TextLRegular"
+        style="@style/TextMRegular"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

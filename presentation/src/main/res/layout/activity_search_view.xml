@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".view.SearchViewActivity">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -30,11 +31,15 @@
         android:id="@+id/tl_search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/til_search"
-        app:tabSelectedTextColor="@color/white"
+        app:tabIndicatorColor="@color/gray_900"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabGravity="fill"
+        app:tabIndicatorHeight="2dp"
+        app:tabSelectedTextColor="@color/gray_900"
         app:tabTextColor="@color/gray_400">
 
         <com.google.android.material.tabs.TabItem
@@ -59,7 +64,9 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tl_search"
         app:navGraph="@navigation/nav_graph" />
 
