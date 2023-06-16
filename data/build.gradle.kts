@@ -47,10 +47,6 @@ dependencies {
     implementation(libs.androidx.paging.runtime)
     implementation(libs.androidx.datastore.preferences)
 
-    testImplementation(libs.test.junit4)
-    androidTestImplementation(libs.test.ext.junit4)
-    androidTestImplementation(libs.test.espresso.core)
-
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)
     implementation(libs.ktor.client.content.negotiation)

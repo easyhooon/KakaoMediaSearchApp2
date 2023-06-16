@@ -15,21 +15,21 @@ import javax.inject.Inject
 
 class SearchLocalDataSourceImpl @Inject constructor(
     private val dataStore: DataStore<Preferences>
-) {
+): SearchLocalDataSource {
     private object PreferenceKeys {
         // key 로 string 을 사용하던 spf 와 다르게 type-safe 를 위해 preferencesKey 를 사용
-        // 저장할 type 이 string 이기때문에 stringPreferencesKey
+        // 저장할 type 이 string 이기 때문에 stringPreferencesKey
         val SORT_MODE = stringPreferencesKey("sort_mode")
     }
 
     // 저장 작업은 coroutine block 내에서 이루어짐
-    suspend fun saveSortMode(mode: String) {
+    override suspend fun saveSortMode(mode: String) {
         dataStore.edit { prefs ->
             prefs[SORT_MODE] = mode
         }
     }
 
-    fun getSortMode(): Flow<String> {
+    override fun getSortMode(): Flow<String> {
         // 파일에 접근하기 위해 data 메소드를 사용
         return dataStore.data
             .catch { exception ->
