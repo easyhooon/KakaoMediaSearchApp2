@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search">검색</string>
+    <string name="view">View</string>
+    <string name="compose">Compose</string>
+    <string name="blog">블로그</string>
+    <string name="video">동영상</string>
+    <string name="image">사진</string>
+    <string name="error_message">문제가 발생하였습니다\n</string>
+    <string name="retry">재시도</string>
+    <string name="error_occurred">문제가 발생했습니다\n\n</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

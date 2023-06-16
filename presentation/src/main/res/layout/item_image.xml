@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="wrap_content"
     android:padding="8dp"
     app:cardCornerRadius="8dp">
 
@@ -19,16 +19,6 @@
             app:layout_constraintEnd_toStartOf="@id/cl_image_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_image_playtime"
-            style="@style/TextXsRegular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:layout_constraintBottom_toBottomOf="@id/iv_image_thumbnail"
-            app:layout_constraintEnd_toEndOf="@id/iv_image_thumbnail"
-            tools:text="01:41" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_image_content"
@@ -68,7 +58,7 @@
                 tools:text="2020.02.24" />
 
             <TextView
-                android:id="@+id/tv_image_author"
+                android:id="@+id/tv_image_site_name"
                 style="@style/TextLRegular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
