@@ -65,17 +65,17 @@ class SearchViewActivity : BaseActivity<ActivitySearchViewBinding>(R.layout.acti
                 override fun onTabSelected(tab: TabLayout.Tab) {
                     when (tab.position) {
                         0 -> {
-                            // navController.popBackStack()
+                            navController.popBackStack()
                             navController.navigate(R.id.blog_search_list_fragment)
                         }
 
                         1 -> {
-                            // navController.popBackStack()
+                            navController.popBackStack()
                             navController.navigate(R.id.video_search_list_fragment)
                         }
 
                         else -> {
-                            // navController.popBackStack()
+                            navController.popBackStack()
                             navController.navigate(R.id.image_search_list_fragment)
                         }
                     }
