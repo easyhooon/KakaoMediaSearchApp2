@@ -7,7 +7,7 @@
     </style>
 
     <style name="Widget.KakaoMediaSearchApp.Toolbar.WithArrow" parent="Widget.KakaoMediaSearchAppm.Toolbar">
-        <item name="navigationIcon">@drawable/ic_arrow_left_outlined_24</item>
+        <item name="navigationIcon">@drawable/ic_left_arrow_24</item>
     </style>
 
     <style name="ShapeAppearance.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
@@ -43,9 +43,9 @@
         <item name="boxBackgroundColor">@color/white</item>
         <item name="endIconMode">clear_text</item>
         <item name="endIconDrawable">@drawable/ic_close_24</item>
+        <item name="startIconDrawable">@drawable/ic_search_24</item>
         <item name="errorTextAppearance">@style/TextXsRegular</item>
         <item name="hintEnabled">false</item>
-        <item name="startIconDrawable">@drawable/ic_daum_24</item>
         <item name="android:theme">
             @style/ThemeOverlay.KakaoMediaSearchApp.TextInputLayout.CursorColor
         </item>
