@@ -62,11 +62,6 @@ class SearchViewModel @Inject constructor(
                     }
             }
             .cachedIn(viewModelScope)
-            .stateIn(
-                viewModelScope,
-                SharingStarted.WhileSubscribed(5_000),
-                PagingData.empty()
-            )
 
     val searchVideos: Flow<PagingData<VideoItem>> =
         query.filterNotNull()
@@ -80,11 +75,6 @@ class SearchViewModel @Inject constructor(
                     }
             }
             .cachedIn(viewModelScope)
-            .stateIn(
-                viewModelScope,
-                SharingStarted.WhileSubscribed(5_000),
-                PagingData.empty()
-            )
 
     val searchImages: Flow<PagingData<ImageItem>> =
         query.filterNotNull()
@@ -98,11 +88,6 @@ class SearchViewModel @Inject constructor(
                     }
             }
             .cachedIn(viewModelScope)
-            .stateIn(
-                viewModelScope,
-                SharingStarted.WhileSubscribed(5_000),
-                PagingData.empty()
-            )
 
     fun setQuery(query: String) {
         _query.value = query
