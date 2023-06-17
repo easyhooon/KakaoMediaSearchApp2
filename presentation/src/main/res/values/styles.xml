@@ -43,11 +43,9 @@
         <item name="boxBackgroundColor">@color/white</item>
         <item name="endIconMode">clear_text</item>
         <item name="endIconDrawable">@drawable/ic_close_24</item>
-        <item name="errorIconDrawable">@null</item>
         <item name="errorTextAppearance">@style/TextXsRegular</item>
         <item name="hintEnabled">false</item>
         <item name="startIconDrawable">@drawable/ic_daum_24</item>
-        <item name="startIconTint">@color/gray_200</item>
         <item name="android:theme">
             @style/ThemeOverlay.KakaoMediaSearchApp.TextInputLayout.CursorColor
         </item>
