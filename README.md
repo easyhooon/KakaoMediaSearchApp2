@@ -7,14 +7,14 @@ AGP 버전 상, Android Studio Flamingo 버전 이상에서 Build가 가능합�
 ```
 # secrets.defaults.properties
 KAKAO_API_URL="https://dapi.kakao.com/"
-KAKAO_API_KEY="KakaoAK {Kakao API KEY}
+KAKAO_API_KEY="KakaoAK {Kakao REST API KEY}
 ```
 
 e.g.
 ```
 # secrets.defaults.properties
 KAKAO_API_URL="https://dapi.kakao.com/"
-KAKAO_API_KEY="KakaoAK d87cd5634a458257e3d4asdens2f35"
+KAKAO_API_KEY="KakaoAK c9bf3b615072a170b64208b1eee62e0d"
 ```
 
 # ToDo
