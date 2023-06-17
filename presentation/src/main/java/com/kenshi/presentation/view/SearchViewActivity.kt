@@ -56,29 +56,35 @@ class SearchViewActivity : BaseActivity<ActivitySearchViewBinding>(R.layout.acti
     }
 
     private fun setupTabsWithNavigation() {
-        binding.tlSearch.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                when (tab.position) {
-                    0 -> {
-                        navController.popBackStack()
-                        navController.navigate(R.id.blog_search_list_fragment)
-                    }
-
-                    1 -> {
-                        navController.popBackStack()
-                        navController.navigate(R.id.video_search_list_fragment)
-                    }
-
-                    else -> {
-                        navController.popBackStack()
-                        navController.navigate(R.id.image_search_list_fragment)
-                    }
-                }
+        binding.tlSearch.apply {
+            post {
+                getTabAt(1)?.select()
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
-            override fun onTabReselected(tab: TabLayout.Tab) {}
-        })
+            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab) {
+                    when (tab.position) {
+                        0 -> {
+                            // navController.popBackStack()
+                            navController.navigate(R.id.blog_search_list_fragment)
+                        }
+
+                        1 -> {
+                            // navController.popBackStack()
+                            navController.navigate(R.id.video_search_list_fragment)
+                        }
+
+                        else -> {
+                            // navController.popBackStack()
+                            navController.navigate(R.id.image_search_list_fragment)
+                        }
+                    }
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab) {}
+                override fun onTabReselected(tab: TabLayout.Tab) {}
+            })
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

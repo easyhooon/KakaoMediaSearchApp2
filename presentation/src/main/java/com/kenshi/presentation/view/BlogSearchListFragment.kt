@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.kenshi.presentation.R
@@ -12,6 +13,7 @@ import com.kenshi.presentation.adapter.SearchLoadStateAdapter
 import com.kenshi.presentation.base.BaseFragment
 import com.kenshi.presentation.databinding.FragmentBlogSearchListBinding
 import com.kenshi.presentation.util.repeatOnStarted
+import com.kenshi.presentation.util.safeNavigate
 import com.kenshi.presentation.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -55,15 +57,21 @@ class BlogSearchListFragment :
     }
 
     private fun initListener() {
-        blogSearchAdapter.addLoadStateListener { combinedLoadStates ->
-            val loadState = combinedLoadStates.source
-            val isListEmpty = blogSearchAdapter.itemCount < 1 &&
-                    loadState.refresh is LoadState.NotLoading &&
-                    loadState.append.endOfPaginationReached
+        blogSearchAdapter.apply {
+            addLoadStateListener { combinedLoadStates ->
+                val loadState = combinedLoadStates.source
+                val isListEmpty = blogSearchAdapter.itemCount < 1 &&
+                        loadState.refresh is LoadState.NotLoading &&
+                        loadState.append.endOfPaginationReached
 
-            binding.tvNoResult.isVisible = isListEmpty
-            binding.rvBlogSearch.isVisible = !isListEmpty
-            binding.pbBlogSearch.isVisible = loadState.refresh is LoadState.Loading
+                binding.tvNoResult.isVisible = isListEmpty
+                binding.rvBlogSearch.isVisible = !isListEmpty
+                binding.pbBlogSearch.isVisible = loadState.refresh is LoadState.Loading
+            }
+            setOnItemClickListener { url->
+                val action = BlogSearchListFragmentDirections.actionBlogSearchListFragmentToSearchDetailFragment(url)
+                findNavController().safeNavigate(action)
+            }
         }
     }
 

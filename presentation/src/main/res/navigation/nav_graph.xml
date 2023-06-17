@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_blog_search_list" >
         <action
             android:id="@+id/action_blog_search_list_fragment_to_searchDetailFragment"
-            app:destination="@id/searchDetailFragment" />
+            app:destination="@id/searchDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/video_search_list_fragment"
@@ -21,7 +25,11 @@
         tools:layout="@layout/fragment_video_search_list" >
         <action
             android:id="@+id/action_video_search_list_fragment_to_searchDetailFragment"
-            app:destination="@id/searchDetailFragment" />
+            app:destination="@id/searchDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -31,11 +39,19 @@
         tools:layout="@layout/fragment_image_search_list" >
         <action
             android:id="@+id/action_image_search_list_fragment_to_searchDetailFragment"
-            app:destination="@id/searchDetailFragment" />
+            app:destination="@id/searchDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/searchDetailFragment"
         android:name="com.kenshi.presentation.view.SearchDetailFragment"
         android:label="fragment_search_detail"
-        tools:layout="@layout/fragment_search_detail" />
+        tools:layout="@layout/fragment_search_detail" >
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
 </navigation>

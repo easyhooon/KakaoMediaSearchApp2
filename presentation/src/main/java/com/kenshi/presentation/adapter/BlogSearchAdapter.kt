@@ -23,13 +23,13 @@ class BlogSearchAdapter : PagingDataAdapter<BlogItem, BlogSearchViewHolder>(
         blogItem?.let { blog ->
             holder.bind(blog)
             holder.itemView.setOnClickListener {
-                onItemClickListener?.let { it(blog)}
+                onItemClickListener?.let { it(blog.url)}
             }
         }
     }
 
-    private var onItemClickListener: ((BlogItem) -> Unit)? = null
-    fun setOnItemClickListener(listener: (BlogItem) -> Unit) {
+    private var onItemClickListener: ((String) -> Unit)? = null
+    fun setOnItemClickListener(listener: (String) -> Unit) {
         onItemClickListener = listener
     }
 

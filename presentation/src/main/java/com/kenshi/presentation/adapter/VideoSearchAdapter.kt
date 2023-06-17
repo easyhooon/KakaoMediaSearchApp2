@@ -23,13 +23,13 @@ class VideoSearchAdapter : PagingDataAdapter<VideoItem, VideoSearchViewHolder>(
         videoItem?.let { video ->
             holder.bind(video)
             holder.itemView.setOnClickListener {
-                onItemClickListener?.let { it(video)}
+                onItemClickListener?.let { it(video.url)}
             }
         }
     }
 
-    private var onItemClickListener: ((VideoItem) -> Unit)? = null
-    fun setOnItemClickListener(listener: (VideoItem) -> Unit) {
+    private var onItemClickListener: ((String) -> Unit)? = null
+    fun setOnItemClickListener(listener: (String) -> Unit) {
         onItemClickListener = listener
     }
 

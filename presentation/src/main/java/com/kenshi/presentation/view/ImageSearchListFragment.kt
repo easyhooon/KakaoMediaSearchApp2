@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.kenshi.presentation.R
@@ -12,6 +13,7 @@ import com.kenshi.presentation.adapter.SearchLoadStateAdapter
 import com.kenshi.presentation.base.BaseFragment
 import com.kenshi.presentation.databinding.FragmentImageSearchListBinding
 import com.kenshi.presentation.util.repeatOnStarted
+import com.kenshi.presentation.util.safeNavigate
 import com.kenshi.presentation.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -54,15 +56,21 @@ class ImageSearchListFragment :
     }
 
     private fun initListener() {
-        imageSearchAdapter.addLoadStateListener { combinedLoadStates ->
-            val loadState = combinedLoadStates.source
-            val isListEmpty = imageSearchAdapter.itemCount < 1 &&
-                    loadState.refresh is LoadState.NotLoading &&
-                    loadState.append.endOfPaginationReached
+        imageSearchAdapter.apply {
+            addLoadStateListener { combinedLoadStates ->
+                val loadState = combinedLoadStates.source
+                val isListEmpty = imageSearchAdapter.itemCount < 1 &&
+                        loadState.refresh is LoadState.NotLoading &&
+                        loadState.append.endOfPaginationReached
 
-            binding.tvNoResult.isVisible = isListEmpty
-            binding.rvImageSearch.isVisible = !isListEmpty
-            binding.pbImageSearch.isVisible = loadState.refresh is LoadState.Loading
+                binding.tvNoResult.isVisible = isListEmpty
+                binding.rvImageSearch.isVisible = !isListEmpty
+                binding.pbImageSearch.isVisible = loadState.refresh is LoadState.Loading
+            }
+            setOnItemClickListener { url->
+                val action = ImageSearchListFragmentDirections.actionImageSearchListFragmentToSearchDetailFragment(url)
+                findNavController().safeNavigate(action)
+            }
         }
     }
 

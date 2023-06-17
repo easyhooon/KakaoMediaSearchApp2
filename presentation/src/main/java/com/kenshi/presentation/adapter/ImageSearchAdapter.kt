@@ -23,13 +23,13 @@ class ImageSearchAdapter : PagingDataAdapter<ImageItem, ImageSearchViewHolder>(
         imageItem?.let { image ->
             holder.bind(image)
             holder.itemView.setOnClickListener {
-                onItemClickListener?.let { it(image)}
+                onItemClickListener?.let { it(image.docUrl)}
             }
         }
     }
 
-    private var onItemClickListener: ((ImageItem) -> Unit)? = null
-    fun setOnItemClickListener(listener: (ImageItem) -> Unit) {
+    private var onItemClickListener: ((String) -> Unit)? = null
+    fun setOnItemClickListener(listener: (String) -> Unit) {
         onItemClickListener = listener
     }
 

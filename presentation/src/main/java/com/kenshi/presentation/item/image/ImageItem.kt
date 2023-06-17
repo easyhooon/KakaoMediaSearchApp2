@@ -1,9 +1,5 @@
 package com.kenshi.presentation.item.image
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
 data class ImageItem (
     val collection: String,
     val thumbnailUrl: String,
@@ -12,4 +8,4 @@ data class ImageItem (
     val displaySiteName: String,
     val docUrl: String,
     val datetime: String,
-): Parcelable
+)
