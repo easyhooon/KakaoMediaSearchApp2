@@ -8,11 +8,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_search"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/search"
-        android:padding="4dp"
+        style="@style/Widget.KakaoMediaSearchApp.TextInputLayout.OutlinedBox"
+        android:layout_margin="8dp"
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,10 +17,12 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_search"
+            style="@style/Widget.KakaoMediaSearchApp.TextInputEditText.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:hint="@string/search"
             android:imeOptions="actionDone"
-            android:inputType="textAutoComplete" />
+            android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -35,24 +34,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/til_search"
-        app:tabIndicatorColor="@color/gray_900"
-        app:tabRippleColor="@android:color/transparent"
         app:tabGravity="fill"
+        app:tabIndicatorColor="@color/gray_900"
         app:tabIndicatorHeight="2dp"
+        app:tabRippleColor="@null"
         app:tabSelectedTextColor="@color/gray_900"
         app:tabTextColor="@color/gray_400">
 
         <com.google.android.material.tabs.TabItem
+            style="@style/TextMRegular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/blog" />
 
         <com.google.android.material.tabs.TabItem
+            style="@style/TextMRegular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/video" />
 
         <com.google.android.material.tabs.TabItem
+            style="@style/TextMRegular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/image" />
