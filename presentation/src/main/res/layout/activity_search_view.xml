@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".view.SearchViewActivity">
+    tools:context=".view.ui.SearchViewActivity">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_search"

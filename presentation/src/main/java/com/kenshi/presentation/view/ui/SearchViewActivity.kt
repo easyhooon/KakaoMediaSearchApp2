@@ -1,4 +1,4 @@
-package com.kenshi.presentation.view
+package com.kenshi.presentation.view.ui
 
 import android.os.Bundle
 import androidx.activity.viewModels
