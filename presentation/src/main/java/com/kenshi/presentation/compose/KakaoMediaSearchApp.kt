@@ -1,12 +1,23 @@
 package com.kenshi.presentation.compose
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.kenshi.presentation.R
 import com.kenshi.presentation.compose.ui.Video
 import com.kenshi.presentation.compose.ui.components.SearchTabRow
 import com.kenshi.presentation.compose.ui.searchTabRowScreens
@@ -16,13 +27,23 @@ import com.kenshi.presentation.compose.ui.theme.KakaoMediaSearchApp2Theme
 fun KakaoMediaSearchApp() {
     KakaoMediaSearchApp2Theme {
         val navController = rememberNavController()
+        var searchQuery by remember { mutableStateOf("") }
         val currentBackStack by navController.currentBackStackEntryAsState()
         val currentDestination = currentBackStack?.destination
         val currentScreen =
             searchTabRowScreens.find { it.route == currentDestination?.route } ?: Video
+        val context = LocalContext.current
 
-        Scaffold(
-            topBar = {
+        Surface(color = Color.White) {
+            Column {
+                OutlinedTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    value = searchQuery,
+                    onValueChange = { searchQuery = it },
+                    label = { Text(context.getString(R.string.search)) }
+                )
                 SearchTabRow(
                     allScreens = searchTabRowScreens,
                     onTabSelected = { newScreen ->
@@ -30,12 +51,14 @@ fun KakaoMediaSearchApp() {
                     },
                     currentScreen = currentScreen
                 )
+
+                SearchNavHost(
+                    navController = navController,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(top = 8.dp)
+                )
             }
-        ) { innerPadding ->
-            SearchNavHost(
-                navController = navController,
-                modifier = Modifier.padding(innerPadding)
-            )
         }
     }
 }
