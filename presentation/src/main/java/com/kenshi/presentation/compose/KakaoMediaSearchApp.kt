@@ -3,6 +3,9 @@ package com.kenshi.presentation.compose
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -44,7 +47,8 @@ fun KakaoMediaSearchApp() {
                         .padding(8.dp),
                     value = searchQuery,
                     onValueChange = { searchQuery = it },
-                    label = { Text(context.getString(R.string.search)) }
+                    label = { Text(context.getString(R.string.search)) },
+                    leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "Search Icon") }
                 )
                 SearchTabRow(
                     allScreens = searchTabRowScreens,
