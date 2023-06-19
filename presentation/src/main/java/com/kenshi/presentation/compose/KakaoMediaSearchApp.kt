@@ -18,9 +18,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.kenshi.presentation.R
-import com.kenshi.presentation.compose.ui.Video
+import com.kenshi.presentation.compose.navigation.SearchNavHost
+import com.kenshi.presentation.compose.navigation.Video
+import com.kenshi.presentation.compose.navigation.navigateSingleTopTo
+import com.kenshi.presentation.compose.navigation.searchTabRowScreens
 import com.kenshi.presentation.compose.ui.components.SearchTabRow
-import com.kenshi.presentation.compose.ui.searchTabRowScreens
 import com.kenshi.presentation.compose.ui.theme.KakaoMediaSearchApp2Theme
 
 @Composable
@@ -51,7 +53,6 @@ fun KakaoMediaSearchApp() {
                     },
                     currentScreen = currentScreen
                 )
-
                 SearchNavHost(
                     navController = navController,
                     modifier = Modifier

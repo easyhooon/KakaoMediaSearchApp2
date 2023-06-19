@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
-import com.kenshi.presentation.compose.ui.SearchDestination
+import com.kenshi.presentation.compose.navigation.SearchDestination
 
 @Composable
 fun SearchTabRow(

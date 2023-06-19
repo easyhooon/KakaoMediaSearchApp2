@@ -1,4 +1,4 @@
-package com.kenshi.presentation.compose.ui
+package com.kenshi.presentation.compose.navigation
 
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
