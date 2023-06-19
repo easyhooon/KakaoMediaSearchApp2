@@ -3,7 +3,7 @@
 android-gradle-plugin = "8.0.2"
 secrets-gradle-plugin = "2.0.1"
 
-kotlin = "1.8.20"
+kotlin = "1.8.22"
 
 kotlinx-coroutines = "1.7.1"
 kotlinx-serialization-json = "1.5.0"
@@ -35,7 +35,6 @@ hilt = "2.45"
 hilt-navigation-compose = "1.0.0"
 
 moshi = "1.14.0"
-accompanist = "0.28.0"
 ksp = "1.8.0-1.0.9"
 coil = "2.2.2"
 timber = "5.0.1"
@@ -43,6 +42,7 @@ desugar-jdk = "2.0.3"
 ktor = "2.2.4"
 startup = "1.1.1"
 slf4j = "1.7.36"
+accompanist-webview = "0.31.3-beta"
 
 [libraries]
 
@@ -90,7 +90,7 @@ androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-
 androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "androidx-paging" }
 androidx-paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "androidx-paging" }
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "androidx-paging-compose" }
-androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidx.datastore"}
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidx.datastore" }
 androidx-startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "startup" }
 
 test-junit4 = { group = "junit", name = "junit", version.ref = "test-junit4" }
@@ -124,6 +124,7 @@ coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "
 coil-kt-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 desugar-jdk = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugar-jdk" }
+accompanist-webview = { group = "com.google.accompanist", name = "accompanist-webview", version.ref = "accompanist-webview" }
 
 [plugins]
 
