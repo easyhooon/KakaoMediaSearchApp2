@@ -14,7 +14,6 @@ import com.kenshi.presentation.base.BaseFragment
 import com.kenshi.presentation.databinding.FragmentVideoSearchListBinding
 import com.kenshi.presentation.util.repeatOnStarted
 import com.kenshi.presentation.util.safeNavigate
-import com.kenshi.presentation.view.VideoSearchListFragmentDirections
 import com.kenshi.presentation.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
