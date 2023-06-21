@@ -8,9 +8,8 @@ import com.kenshi.presentation.adapter.viewholder.ImageSearchViewHolder
 import com.kenshi.presentation.databinding.ItemImageBinding
 import com.kenshi.presentation.item.image.ImageItem
 
-class ImageSearchAdapter : PagingDataAdapter<ImageItem, ImageSearchViewHolder>(
-    ImageItemDiffCallback
-) {
+class ImageSearchAdapter :
+    PagingDataAdapter<ImageItem, ImageSearchViewHolder>(ImageItemDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageSearchViewHolder {
         return ImageSearchViewHolder(
@@ -23,7 +22,7 @@ class ImageSearchAdapter : PagingDataAdapter<ImageItem, ImageSearchViewHolder>(
         imageItem?.let { image ->
             holder.bind(image)
             holder.itemView.setOnClickListener {
-                onItemClickListener?.let { it(image.docUrl)}
+                onItemClickListener?.let { it(image.docUrl) }
             }
         }
     }

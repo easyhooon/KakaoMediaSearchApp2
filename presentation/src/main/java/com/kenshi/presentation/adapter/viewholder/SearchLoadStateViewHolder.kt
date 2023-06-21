@@ -7,10 +7,8 @@ import com.kenshi.presentation.R
 import com.kenshi.presentation.databinding.ItemLoadStateBinding
 
 // loadingState 를 관리 해주는 adapter 의 뷰홀더
-class SearchLoadStateViewHolder(
-    private val binding: ItemLoadStateBinding,
-    retry: () -> Unit,
-) : RecyclerView.ViewHolder(binding.root) {
+class SearchLoadStateViewHolder(private val binding: ItemLoadStateBinding, retry: () -> Unit) :
+    RecyclerView.ViewHolder(binding.root) {
 
     init {
         binding.btnRetry.setOnClickListener {

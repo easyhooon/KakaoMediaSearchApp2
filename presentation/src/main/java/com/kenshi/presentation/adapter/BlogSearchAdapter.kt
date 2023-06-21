@@ -8,9 +8,7 @@ import com.kenshi.presentation.adapter.viewholder.BlogSearchViewHolder
 import com.kenshi.presentation.databinding.ItemBlogBinding
 import com.kenshi.presentation.item.blog.BlogItem
 
-class BlogSearchAdapter : PagingDataAdapter<BlogItem, BlogSearchViewHolder>(
-    BlogItemDiffCallback
-) {
+class BlogSearchAdapter : PagingDataAdapter<BlogItem, BlogSearchViewHolder>(BlogItemDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogSearchViewHolder {
         return BlogSearchViewHolder(
@@ -23,7 +21,7 @@ class BlogSearchAdapter : PagingDataAdapter<BlogItem, BlogSearchViewHolder>(
         blogItem?.let { blog ->
             holder.bind(blog)
             holder.itemView.setOnClickListener {
-                onItemClickListener?.let { it(blog.url)}
+                onItemClickListener?.let { it(blog.url) }
             }
         }
     }

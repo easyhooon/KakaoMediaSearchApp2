@@ -7,9 +7,8 @@ import androidx.paging.LoadStateAdapter
 import com.kenshi.presentation.adapter.viewholder.SearchLoadStateViewHolder
 import com.kenshi.presentation.databinding.ItemLoadStateBinding
 
-class SearchLoadStateAdapter(
-    private val retry: () -> Unit,
-) : LoadStateAdapter<SearchLoadStateViewHolder>() {
+class SearchLoadStateAdapter(private val retry: () -> Unit) :
+    LoadStateAdapter<SearchLoadStateViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

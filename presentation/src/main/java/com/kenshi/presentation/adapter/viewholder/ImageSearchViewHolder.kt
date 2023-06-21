@@ -6,9 +6,8 @@ import com.kenshi.presentation.databinding.ItemImageBinding
 import com.kenshi.presentation.item.image.ImageItem
 import com.kenshi.presentation.util.extractDateFromDatetime
 
-class ImageSearchViewHolder(
-    private val binding: ItemImageBinding
-) : RecyclerView.ViewHolder(binding.root) {
+class ImageSearchViewHolder(private val binding: ItemImageBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
     fun bind(imageItem: ImageItem) {
         val datetime = extractDateFromDatetime(imageItem.datetime)

@@ -8,9 +8,8 @@ import com.kenshi.presentation.adapter.viewholder.VideoSearchViewHolder
 import com.kenshi.presentation.databinding.ItemVideoBinding
 import com.kenshi.presentation.item.video.VideoItem
 
-class VideoSearchAdapter : PagingDataAdapter<VideoItem, VideoSearchViewHolder>(
-    VideoItemDiffCallback
-) {
+class VideoSearchAdapter :
+    PagingDataAdapter<VideoItem, VideoSearchViewHolder>(VideoItemDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoSearchViewHolder {
         return VideoSearchViewHolder(
@@ -23,7 +22,7 @@ class VideoSearchAdapter : PagingDataAdapter<VideoItem, VideoSearchViewHolder>(
         videoItem?.let { video ->
             holder.bind(video)
             holder.itemView.setOnClickListener {
-                onItemClickListener?.let { it(video.url)}
+                onItemClickListener?.let { it(video.url) }
             }
         }
     }
