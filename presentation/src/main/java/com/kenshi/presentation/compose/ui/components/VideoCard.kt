@@ -1,6 +1,7 @@
 package com.kenshi.presentation.compose.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -37,6 +38,7 @@ fun VideoCard(
         Modifier
             .fillMaxWidth()
             .padding(8.dp)
+            .clickable { onClick(video.url) }
     ) {
         AsyncImage(
             modifier = Modifier
@@ -50,8 +52,8 @@ fun VideoCard(
         Text(
             modifier = Modifier
                 .align(Alignment.Bottom)
-                .offset(y = (-8).dp)
-                .padding(horizontal = 8.dp, vertical = 2.dp)
+                .offset(x = (-40).dp)
+                .padding(bottom = 8.dp)
                 .background(Color.Gray),
             text = formatPlaytime(video.playtime),
             style = MaterialTheme.typography.bodySmall,
