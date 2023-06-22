@@ -48,7 +48,7 @@ fun SearchTabRow(
     ) {
         allScreens.forEach { screen ->
             SearchTab(
-                text = screen.route,
+                text = screen.title,
                 onSelected = { onTabSelected(screen) },
                 selected = currentScreen == screen,
             )
@@ -63,7 +63,6 @@ private fun SearchTab(
     selected: Boolean,
     modifier: Modifier = Modifier
 ) {
-    val color = MaterialTheme.colorScheme.onSurface
     Box(
         modifier = modifier
             .padding(16.dp)
