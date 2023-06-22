@@ -11,6 +11,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,11 +29,12 @@ import com.kenshi.presentation.compose.navigation.Video
 import com.kenshi.presentation.compose.navigation.navigateSingleTopTo
 import com.kenshi.presentation.compose.navigation.searchTabRowScreens
 import com.kenshi.presentation.compose.ui.components.SearchTabRow
+import com.kenshi.presentation.viewmodel.SearchViewModel
 
 @Composable
 fun KakaoMediaSearchApp() {
-    val viewModel: SearchComposeViewModel = hiltViewModel()
-    val searchQuery by viewModel.searchQuery
+    val viewModel: SearchViewModel = hiltViewModel()
+    val searchQuery by viewModel.searchQuery.collectAsState()
     val blogItems = viewModel.searchBlogs.collectAsLazyPagingItems()
     val videoItems = viewModel.searchVideos.collectAsLazyPagingItems()
     val imageItems = viewModel.searchImages.collectAsLazyPagingItems()
@@ -47,7 +49,7 @@ fun KakaoMediaSearchApp() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
-                value = searchQuery,
+                value = searchQuery ?: "",
                 singleLine = true,
                 onValueChange = {
                     viewModel.updateSearchQuery(it)

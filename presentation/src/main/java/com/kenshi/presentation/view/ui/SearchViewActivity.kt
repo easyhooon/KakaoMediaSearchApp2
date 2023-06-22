@@ -48,7 +48,7 @@ class SearchViewActivity : BaseActivity<ActivitySearchViewBinding>(R.layout.acti
                 .onEach { text ->
                     text?.let {
                         val query = it.toString().trim()
-                        searchViewModel.setQuery(query)
+                        searchViewModel.updateSearchQuery(query)
                     }
                 }
                 .launchIn(this)

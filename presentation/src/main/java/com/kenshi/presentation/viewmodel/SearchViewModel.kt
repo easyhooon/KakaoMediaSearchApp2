@@ -38,8 +38,8 @@ class SearchViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _query: SaveableMutableStateFlow<String?> = savedStateHandle.getMutableStateFlow(KEY_SEARCH_TEXT, null)
-    val query = _query.asStateFlow()
+    private val _searchQuery: SaveableMutableStateFlow<String?> = savedStateHandle.getMutableStateFlow(KEY_SEARCH_TEXT, null)
+    val searchQuery = _searchQuery.asStateFlow()
 
     private val searchSortMode: StateFlow<String> =
         getSortModeUseCase()
@@ -51,7 +51,7 @@ class SearchViewModel @Inject constructor(
 
     // TODO: 흐름 완벽히 이해
     val searchBlogs: Flow<PagingData<BlogItem>> =
-        query.filterNotNull()
+        searchQuery.filterNotNull()
             .combineTransform(searchSortMode) { query, sortMode -> emit(query to sortMode) }
             .flatMapLatest { (query, sortMode) ->
                 getBlogSearchListUseCase(query, sortMode)
@@ -64,7 +64,7 @@ class SearchViewModel @Inject constructor(
             .cachedIn(viewModelScope)
 
     val searchVideos: Flow<PagingData<VideoItem>> =
-        query.filterNotNull()
+        searchQuery.filterNotNull()
             .combineTransform(searchSortMode) { query, sortMode -> emit(query to sortMode) }
             .flatMapLatest { (query, sortMode) ->
                 getVideoSearchListUseCase(query, sortMode)
@@ -77,7 +77,7 @@ class SearchViewModel @Inject constructor(
             .cachedIn(viewModelScope)
 
     val searchImages: Flow<PagingData<ImageItem>> =
-        query.filterNotNull()
+        searchQuery.filterNotNull()
             .combineTransform(searchSortMode) { query, sortMode -> emit(query to sortMode) }
             .flatMapLatest { (query, sortMode) ->
                 getImageSearchListUseCase(query, sortMode)
@@ -89,8 +89,8 @@ class SearchViewModel @Inject constructor(
             }
             .cachedIn(viewModelScope)
 
-    fun setQuery(query: String) {
-        _query.value = query
+    fun updateSearchQuery(query: String) {
+        _searchQuery.value = query
     }
 
     companion object {
