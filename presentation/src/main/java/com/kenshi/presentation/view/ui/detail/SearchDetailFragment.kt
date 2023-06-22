@@ -7,7 +7,7 @@ import android.view.View
 import android.webkit.WebView
 import androidx.navigation.fragment.navArgs
 import com.kenshi.presentation.R
-import com.kenshi.presentation.base.BaseFragment
+import com.kenshi.presentation.view.base.BaseFragment
 import com.kenshi.presentation.databinding.FragmentSearchDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 

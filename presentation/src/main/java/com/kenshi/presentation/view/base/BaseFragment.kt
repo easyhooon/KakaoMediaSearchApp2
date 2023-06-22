@@ -1,4 +1,4 @@
-package com.kenshi.presentation.base
+package com.kenshi.presentation.view.base
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable

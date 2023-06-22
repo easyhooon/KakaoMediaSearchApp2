@@ -8,9 +8,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.kenshi.presentation.R
-import com.kenshi.presentation.adapter.BlogSearchAdapter
-import com.kenshi.presentation.adapter.SearchLoadStateAdapter
-import com.kenshi.presentation.base.BaseFragment
+import com.kenshi.presentation.view.adapter.BlogSearchAdapter
+import com.kenshi.presentation.view.adapter.SearchLoadStateAdapter
+import com.kenshi.presentation.view.base.BaseFragment
 import com.kenshi.presentation.databinding.FragmentBlogSearchListBinding
 import com.kenshi.presentation.util.repeatOnStarted
 import com.kenshi.presentation.util.safeNavigate

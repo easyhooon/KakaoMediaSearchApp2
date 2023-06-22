@@ -49,7 +49,6 @@ class SearchViewModel @Inject constructor(
                 ""
             )
 
-    // TODO: 흐름 완벽히 이해
     val searchBlogs: Flow<PagingData<BlogItem>> =
         searchQuery.filterNotNull()
             .combineTransform(searchSortMode) { query, sortMode -> emit(query to sortMode) }

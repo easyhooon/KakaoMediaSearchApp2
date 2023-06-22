@@ -5,7 +5,7 @@ import androidx.activity.viewModels
 import androidx.navigation.findNavController
 import com.google.android.material.tabs.TabLayout
 import com.kenshi.presentation.R
-import com.kenshi.presentation.base.BaseActivity
+import com.kenshi.presentation.view.base.BaseActivity
 import com.kenshi.presentation.databinding.ActivitySearchViewBinding
 import com.kenshi.presentation.util.Constants.SEARCH_TIME_DELAY
 import com.kenshi.presentation.util.repeatOnStarted

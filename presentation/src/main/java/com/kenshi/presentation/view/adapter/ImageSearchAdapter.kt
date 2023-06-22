@@ -1,10 +1,10 @@
-package com.kenshi.presentation.adapter
+package com.kenshi.presentation.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.kenshi.presentation.adapter.viewholder.ImageSearchViewHolder
+import com.kenshi.presentation.view.adapter.viewholder.ImageSearchViewHolder
 import com.kenshi.presentation.databinding.ItemImageBinding
 import com.kenshi.presentation.item.image.ImageItem
 

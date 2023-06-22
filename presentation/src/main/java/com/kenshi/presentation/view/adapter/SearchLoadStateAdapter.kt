@@ -1,10 +1,10 @@
-package com.kenshi.presentation.adapter
+package com.kenshi.presentation.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
-import com.kenshi.presentation.adapter.viewholder.SearchLoadStateViewHolder
+import com.kenshi.presentation.view.adapter.viewholder.SearchLoadStateViewHolder
 import com.kenshi.presentation.databinding.ItemLoadStateBinding
 
 class SearchLoadStateAdapter(private val retry: () -> Unit) :

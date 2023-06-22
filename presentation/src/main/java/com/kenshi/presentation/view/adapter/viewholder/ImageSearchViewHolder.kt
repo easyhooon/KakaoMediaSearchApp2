@@ -1,4 +1,4 @@
-package com.kenshi.presentation.adapter.viewholder
+package com.kenshi.presentation.view.adapter.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
