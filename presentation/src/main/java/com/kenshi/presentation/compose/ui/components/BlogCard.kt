@@ -57,7 +57,9 @@ fun BlogCard(
                 .weight(1f)
                 .padding(start = 8.dp)
         ) {
-            BlogTitleText(searchQuery = searchQuery, title = blogItem.title)
+            BlogTitleText(
+                searchQuery = searchQuery, title = blogItem.title
+            )
             Spacer(Modifier.height(8.dp))
             Text(
                 text = extractDateFromDatetime(blogItem.datetime),
@@ -94,14 +96,7 @@ fun BlogTitleText(
                         append(word)
                     }
                 } else {
-                    withStyle(
-                        style = SpanStyle(
-                            fontWeight = FontWeight.Medium,
-                            color = Color.DarkGray
-                        )
-                    ) {
-                        append(word)
-                    }
+                    append(word)
                 }
                 if (index != words.size - 1) append(" ")
             }
@@ -109,6 +104,7 @@ fun BlogTitleText(
         style = MaterialTheme.typography.bodyLarge,
         maxLines = 2,
         overflow = TextOverflow.Ellipsis,
+        color = Color.DarkGray
     )
 }
 
