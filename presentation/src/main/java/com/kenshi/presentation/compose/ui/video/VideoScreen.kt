@@ -20,7 +20,7 @@ fun VideoScreen(
             }
         ) { video ->
             video?.let {
-                VideoCard(video = it, onClick = onClickSeeVideoDetail)
+                VideoCard(videoItem = it, onClick = onClickSeeVideoDetail)
             }
         }
     }

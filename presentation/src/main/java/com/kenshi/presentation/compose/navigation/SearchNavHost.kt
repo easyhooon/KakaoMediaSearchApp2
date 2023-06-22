@@ -17,6 +17,7 @@ import com.kenshi.presentation.item.video.VideoItem
 @Composable
 fun SearchNavHost(
     navController: NavHostController,
+    searchQuery: String,
     blogs: LazyPagingItems<BlogItem>,
     videos: LazyPagingItems<VideoItem>,
     images: LazyPagingItems<ImageItem>,
@@ -29,7 +30,8 @@ fun SearchNavHost(
     ) {
         composable(route = Blog.route) {
             BlogScreen(
-                blogs,
+                blogs = blogs,
+                searchQuery = searchQuery,
                 onClickSeeBlogDetail = { accountType ->
                     navController.navigateSingleTopTo(accountType)
                 }
@@ -37,7 +39,7 @@ fun SearchNavHost(
         }
         composable(route = Video.route) {
             VideoScreen(
-                videos,
+                videos = videos,
                 onClickSeeVideoDetail = { accountType ->
                     navController.navigateSingleTopTo(accountType)
                 }
@@ -45,7 +47,7 @@ fun SearchNavHost(
         }
         composable(route = Image.route) {
             ImageScreen(
-                images,
+                images = images,
                 onClickSeeImageDetail = { accountType ->
                     navController.navigateSingleTopTo(accountType)
                 }

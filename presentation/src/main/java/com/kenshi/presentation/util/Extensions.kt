@@ -74,7 +74,7 @@ fun NavController.safeNavigate(
 }
 
 fun makeSearchTextBold(text: String): SpannableString {
-  return SpannableString(Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT))
+    return SpannableString(Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT))
 }
 
 fun extractDateFromDatetime(datetime: String): String {

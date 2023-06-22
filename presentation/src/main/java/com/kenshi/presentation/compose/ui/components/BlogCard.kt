@@ -15,17 +15,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.text.HtmlCompat
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.kenshi.presentation.compose.ui.theme.KakaoMediaSearchApp2Theme
 import com.kenshi.presentation.item.blog.BlogItem
+import com.kenshi.presentation.util.extractDateFromDatetime
 
 @Composable
 fun BlogCard(
-    blog: BlogItem,
+    blogItem: BlogItem,
+    searchQuery: String,
     onClick: (String) -> Unit
 ) {
     val context = LocalContext.current
@@ -34,13 +41,13 @@ fun BlogCard(
         Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { onClick(blog.url) }
+            .clickable { onClick(blogItem.url) }
     ) {
         AsyncImage(
             modifier = Modifier
                 .size(180.dp, 120.dp),
             model = ImageRequest.Builder(context)
-                .data(blog.thumbnail)
+                .data(blogItem.thumbnail)
                 .build(),
             contentScale = ContentScale.Crop,
             contentDescription = "Blog Thumbnail Image"
@@ -50,22 +57,16 @@ fun BlogCard(
                 .weight(1f)
                 .padding(start = 8.dp)
         ) {
-            Text(
-                text = blog.title,
-                style = MaterialTheme.typography.headlineSmall,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
-                color = Color.Gray
-            )
+            BlogTitleText(searchQuery = searchQuery, title = blogItem.title)
             Spacer(Modifier.height(8.dp))
             Text(
-                text = blog.datetime,
+                text = extractDateFromDatetime(blogItem.datetime),
                 style = MaterialTheme.typography.bodyLarge,
                 color = Color.DarkGray
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = blog.blogName,
+                text = blogItem.blogName,
                 style = MaterialTheme.typography.bodyLarge,
                 color = Color.DarkGray
             )
@@ -73,19 +74,58 @@ fun BlogCard(
     }
 }
 
+@Composable
+fun BlogTitleText(
+    searchQuery: String,
+    title: String
+) {
+    val plainText = HtmlCompat.fromHtml(title, HtmlCompat.FROM_HTML_MODE_COMPACT).toString()
+    val words = plainText.split(" ").toMutableList()
+    Text(
+        text = buildAnnotatedString {
+            words.forEachIndexed { index, word ->
+                if (word.contains(searchQuery, true)) {
+                    withStyle(
+                        style = SpanStyle(
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Black
+                        )
+                    ) {
+                        append(word)
+                    }
+                } else {
+                    withStyle(
+                        style = SpanStyle(
+                            fontWeight = FontWeight.Medium,
+                            color = Color.DarkGray
+                        )
+                    ) {
+                        append(word)
+                    }
+                }
+                if (index != words.size - 1) append(" ")
+            }
+        },
+        style = MaterialTheme.typography.bodyLarge,
+        maxLines = 2,
+        overflow = TextOverflow.Ellipsis,
+    )
+}
+
 @Preview
 @Composable
 fun BlogCardPreview() {
     KakaoMediaSearchApp2Theme {
         BlogCard(
-            blog = BlogItem(
-                title = "",
+            blogItem = BlogItem(
+                title = "Android is fun",
                 contents = "",
                 url = "",
                 blogName = "",
                 thumbnail = "",
                 datetime = "",
             ),
+            searchQuery = "Android",
             onClick = {}
         )
     }

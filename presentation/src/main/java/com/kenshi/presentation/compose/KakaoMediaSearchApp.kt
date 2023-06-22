@@ -31,6 +31,7 @@ import com.kenshi.presentation.compose.navigation.searchTabRowScreens
 import com.kenshi.presentation.compose.ui.components.SearchTabRow
 import com.kenshi.presentation.viewmodel.SearchViewModel
 
+//TODO 검색 debounce 적용
 @Composable
 fun KakaoMediaSearchApp() {
     val viewModel: SearchViewModel = hiltViewModel()
@@ -74,6 +75,7 @@ fun KakaoMediaSearchApp() {
             )
             SearchNavHost(
                 navController = navController,
+                searchQuery = searchQuery ?: "",
                 blogs = blogItems,
                 videos = videoItems,
                 images = imageItems,

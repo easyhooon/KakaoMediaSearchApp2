@@ -20,7 +20,7 @@ fun ImageScreen(
             }
         ) { image ->
             image?.let {
-                ImageCard(image = it, onClick = onClickSeeImageDetail)
+                ImageCard(imageItem = it, onClick = onClickSeeImageDetail)
             }
         }
     }

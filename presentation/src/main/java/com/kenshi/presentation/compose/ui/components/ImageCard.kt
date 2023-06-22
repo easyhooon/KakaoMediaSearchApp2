@@ -22,10 +22,11 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.kenshi.presentation.compose.ui.theme.KakaoMediaSearchApp2Theme
 import com.kenshi.presentation.item.image.ImageItem
+import com.kenshi.presentation.util.extractDateFromDatetime
 
 @Composable
 fun ImageCard(
-    image: ImageItem,
+    imageItem: ImageItem,
     onClick: (String) -> Unit
 ) {
     val context = LocalContext.current
@@ -34,13 +35,13 @@ fun ImageCard(
         Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { onClick(image.thumbnailUrl) }
+            .clickable { onClick(imageItem.thumbnailUrl) }
     ) {
         AsyncImage(
             modifier = Modifier
                 .size(180.dp, 120.dp),
             model = ImageRequest.Builder(context)
-                .data(image.thumbnailUrl)
+                .data(imageItem.thumbnailUrl)
                 .build(),
             contentScale = ContentScale.Crop,
             contentDescription = "Image Thumbnail Image"
@@ -51,21 +52,21 @@ fun ImageCard(
                 .padding(start = 8.dp)
         ) {
             Text(
-                text = image.collection,
-                style = MaterialTheme.typography.headlineSmall,
+                text = imageItem.collection,
+                style = MaterialTheme.typography.bodyLarge,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
-                color = Color.Gray
+                color = Color.DarkGray
             )
             Spacer(Modifier.height(8.dp))
             Text(
-                text = image.datetime,
+                text = extractDateFromDatetime(imageItem.datetime),
                 style = MaterialTheme.typography.bodyLarge,
                 color = Color.DarkGray
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = image.displaySiteName,
+                text = imageItem.displaySiteName,
                 style = MaterialTheme.typography.bodyLarge,
                 color = Color.DarkGray
             )
@@ -78,7 +79,7 @@ fun ImageCard(
 fun ImageCardPreview() {
     KakaoMediaSearchApp2Theme {
         ImageCard(
-            image = ImageItem(
+            imageItem = ImageItem(
                 collection = "",
                 thumbnailUrl = "",
                 width = "",

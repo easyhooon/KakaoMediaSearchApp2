@@ -2,6 +2,7 @@ package com.kenshi.presentation.compose.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,11 +26,12 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.kenshi.presentation.compose.ui.theme.KakaoMediaSearchApp2Theme
 import com.kenshi.presentation.item.video.VideoItem
+import com.kenshi.presentation.util.extractDateFromDatetime
 import com.kenshi.presentation.util.formatPlaytime
 
 @Composable
 fun VideoCard(
-    video: VideoItem,
+    videoItem: VideoItem,
     onClick: (String) -> Unit
 ) {
     val context = LocalContext.current
@@ -38,48 +40,50 @@ fun VideoCard(
         Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { onClick(video.url) }
+            .clickable { onClick(videoItem.url) }
     ) {
-        AsyncImage(
-            modifier = Modifier
-                .size(180.dp, 120.dp),
-            model = ImageRequest.Builder(context)
-                .data(video.thumbnail)
-                .build(),
-            contentScale = ContentScale.Crop,
-            contentDescription = "Video Thumbnail Image"
-        )
-        Text(
-            modifier = Modifier
-                .align(Alignment.Bottom)
-                .offset(x = (-40).dp)
-                .padding(bottom = 8.dp)
-                .background(Color.Gray),
-            text = formatPlaytime(video.playtime),
-            style = MaterialTheme.typography.bodySmall,
-            color = Color.White,
-        )
+        Box {
+            AsyncImage(
+                modifier = Modifier
+                    .size(180.dp, 120.dp),
+                model = ImageRequest.Builder(context)
+                    .data(videoItem.thumbnail)
+                    .build(),
+                contentScale = ContentScale.Crop,
+                contentDescription = "Video Thumbnail Image"
+            )
+            Text(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .offset(x = (-8).dp)
+                    .padding(bottom = 8.dp)
+                    .background(Color.DarkGray),
+                text = formatPlaytime(videoItem.playtime),
+                style = MaterialTheme.typography.bodySmall,
+                color = Color.White,
+            )
+        }
         Column(
             modifier = Modifier
                 .weight(1f)
                 .padding(start = 8.dp)
         ) {
             Text(
-                text = video.title,
-                style = MaterialTheme.typography.headlineSmall,
+                text = videoItem.title,
+                style = MaterialTheme.typography.bodyLarge,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
-                color = Color.Gray
+                color = Color.DarkGray
             )
             Spacer(Modifier.height(8.dp))
             Text(
-                text = video.datetime,
+                text = extractDateFromDatetime(videoItem.datetime),
                 style = MaterialTheme.typography.bodyLarge,
                 color = Color.DarkGray
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = video.author,
+                text = videoItem.author,
                 style = MaterialTheme.typography.bodyLarge,
                 color = Color.DarkGray
             )
@@ -92,7 +96,7 @@ fun VideoCard(
 fun VideoCardPreview() {
     KakaoMediaSearchApp2Theme {
         VideoCard(
-            video = VideoItem(
+            videoItem = VideoItem(
                 title = "",
                 url = "",
                 datetime = "",

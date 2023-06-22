@@ -10,6 +10,7 @@ import com.kenshi.presentation.item.blog.BlogItem
 @Composable
 fun BlogScreen(
     blogs: LazyPagingItems<BlogItem>,
+    searchQuery: String,
     onClickSeeBlogDetail: (String) -> Unit = {},
 ) {
     LazyColumn {
@@ -20,7 +21,7 @@ fun BlogScreen(
             }
         ) { blog ->
             blog?.let {
-                BlogCard(blog = it, onClick = onClickSeeBlogDetail)
+                BlogCard(blogItem = it, searchQuery, onClick = onClickSeeBlogDetail)
             }
         }
     }
