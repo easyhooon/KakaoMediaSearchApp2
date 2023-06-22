@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.kenshi.presentation.R
 import com.kenshi.presentation.compose.navigation.SearchNavHost
 import com.kenshi.presentation.compose.navigation.Video
@@ -30,6 +31,10 @@ import com.kenshi.presentation.compose.ui.components.SearchTabRow
 @Composable
 fun KakaoMediaSearchApp() {
     val viewModel: SearchComposeViewModel = hiltViewModel()
+    val searchQuery by viewModel.searchQuery
+    val blogItems = viewModel.searchBlogs.collectAsLazyPagingItems()
+    val videoItems = viewModel.searchVideos.collectAsLazyPagingItems()
+    val imageItems = viewModel.searchImages.collectAsLazyPagingItems()
     val navController = rememberNavController()
     val currentBackStack by navController.currentBackStackEntryAsState()
     val currentDestination = currentBackStack?.destination
@@ -41,7 +46,7 @@ fun KakaoMediaSearchApp() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
-                value = viewModel.searchQuery,
+                value = searchQuery,
                 singleLine = true,
                 onValueChange = {
                     viewModel.updateSearchQuery(it)
@@ -61,6 +66,9 @@ fun KakaoMediaSearchApp() {
             )
             SearchNavHost(
                 navController = navController,
+                blogs = blogItems,
+                videos = videoItems,
+                images = imageItems,
                 modifier = Modifier
                     .weight(1f)
                     .padding(top = 8.dp)
