@@ -15,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -51,11 +52,16 @@ fun KakaoMediaSearchApp() {
                 onValueChange = {
                     viewModel.updateSearchQuery(it)
                 },
-                label = { Text(stringResource(R.string.search)) },
                 leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "Search Icon") },
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Done
                 ),
+                placeholder = {
+                    Text(
+                        text = stringResource(R.string.search),
+                        fontWeight = FontWeight.Thin
+                    )
+                },
             )
             SearchTabRow(
                 allScreens = searchTabRowScreens,
