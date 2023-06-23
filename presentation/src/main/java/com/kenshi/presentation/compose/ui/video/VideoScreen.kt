@@ -10,7 +10,7 @@ import com.kenshi.presentation.item.video.VideoItem
 @Composable
 fun VideoScreen(
     videos: LazyPagingItems<VideoItem>,
-    onClickSeeVideoDetail: (String) -> Unit = {}
+    onClickSeeVideoDetail: (String) -> Unit,
 ) {
     LazyColumn {
         items(

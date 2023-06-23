@@ -10,7 +10,7 @@ import com.kenshi.presentation.item.image.ImageItem
 @Composable
 fun ImageScreen(
     images: LazyPagingItems<ImageItem>,
-    onClickSeeImageDetail: (String) -> Unit = {},
+    onClickSeeImageDetail: (String) -> Unit,
 ) {
     LazyColumn {
         items(

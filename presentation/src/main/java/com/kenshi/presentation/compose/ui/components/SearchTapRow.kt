@@ -20,26 +20,6 @@ fun SearchTabRow(
     onTabSelected: (SearchDestination) -> Unit,
     currentScreen: SearchDestination
 ) {
-//    Surface(
-//        Modifier
-//            .height(TabHeight)
-//            .fillMaxWidth()
-//    ) {
-//        Row(
-//            Modifier
-//                .fillMaxWidth()
-//                .selectableGroup()
-//        ) {
-//            allScreens.forEach { screen ->
-//                SearchTab(
-//                    text = screen.route,
-//                    onSelected = { onTabSelected(screen) },
-//                    selected = currentScreen == screen,
-//                    modifier = Modifier.weight(1f)
-//                )
-//            }
-//        }
-//    }
     val selectedIndex = allScreens.indexOf(currentScreen)
     TabRow(
         selectedTabIndex = selectedIndex,
@@ -71,11 +51,6 @@ private fun SearchTab(
                 selected = selected,
                 onClick = onSelected,
                 role = Role.Tab,
-//                indication = rememberRipple(
-//                    bounded = false,
-//                    radius = Dp.Unspecified,
-//                    color = Color.Unspecified
-//                )
             )
     ) {
         Text(

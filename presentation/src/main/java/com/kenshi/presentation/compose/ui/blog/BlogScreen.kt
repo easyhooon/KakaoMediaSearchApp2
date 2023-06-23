@@ -11,7 +11,7 @@ import com.kenshi.presentation.item.blog.BlogItem
 fun BlogScreen(
     blogs: LazyPagingItems<BlogItem>,
     searchQuery: String,
-    onClickSeeBlogDetail: (String) -> Unit = {},
+    onClickSeeBlogDetail: (String) -> Unit ,
 ) {
     LazyColumn {
         items(
