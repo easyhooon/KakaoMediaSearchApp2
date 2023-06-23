@@ -65,7 +65,7 @@ fun ImageCard(
             Text(
                 text = extractDateFromDatetime(imageItem.datetime),
                 style = MaterialTheme.typography.bodyLarge,
-                color = Color.DarkGray
+                color = Color.Gray
             )
             Spacer(Modifier.height(4.dp))
             Text(

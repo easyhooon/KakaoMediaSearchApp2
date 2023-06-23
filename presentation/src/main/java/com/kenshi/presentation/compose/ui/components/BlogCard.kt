@@ -67,7 +67,7 @@ fun BlogCard(
             Text(
                 text = extractDateFromDatetime(blogItem.datetime),
                 style = MaterialTheme.typography.bodyLarge,
-                color = Color.DarkGray
+                color = Color.Gray
             )
             Spacer(Modifier.height(4.dp))
             Text(

@@ -82,7 +82,7 @@ fun VideoCard(
             Text(
                 text = extractDateFromDatetime(videoItem.datetime),
                 style = MaterialTheme.typography.bodyLarge,
-                color = Color.DarkGray
+                color = Color.Gray
             )
             Spacer(Modifier.height(4.dp))
             Text(
