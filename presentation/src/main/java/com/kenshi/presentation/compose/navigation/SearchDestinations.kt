@@ -23,11 +23,11 @@ object Image: SearchDestination {
     override val title = "사진"
 }
 
-object Detail: SearchDestination {
+object SearchDetail: SearchDestination {
     override val route = "detail"
     override val title = "상세 화면"
     const val urlTypeArg = "url_type"
-    val routeWithArgs = "${route}/{$urlTypeArg}"
+    val routeWithArgs = "$route/{$urlTypeArg}"
     val arguments = listOf(
         navArgument(urlTypeArg) { type = NavType.StringType}
     )

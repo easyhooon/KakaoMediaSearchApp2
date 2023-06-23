@@ -8,11 +8,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.paging.compose.LazyPagingItems
 import com.kenshi.presentation.compose.ui.blog.BlogScreen
+import com.kenshi.presentation.compose.ui.detail.SearchDetailScreen
 import com.kenshi.presentation.compose.ui.image.ImageScreen
 import com.kenshi.presentation.compose.ui.video.VideoScreen
 import com.kenshi.presentation.item.blog.BlogItem
 import com.kenshi.presentation.item.image.ImageItem
 import com.kenshi.presentation.item.video.VideoItem
+import timber.log.Timber
 
 @Composable
 fun SearchNavHost(
@@ -32,26 +34,34 @@ fun SearchNavHost(
             BlogScreen(
                 blogs = blogs,
                 searchQuery = searchQuery,
-                onClickSeeBlogDetail = { accountType ->
-                    navController.navigateSingleTopTo(accountType)
+                onClickSeeBlogDetail = { urlType ->
+                    navController.navigateToDetail(urlType)
                 }
             )
         }
         composable(route = Video.route) {
             VideoScreen(
                 videos = videos,
-                onClickSeeVideoDetail = { accountType ->
-                    navController.navigateSingleTopTo(accountType)
+                onClickSeeVideoDetail = { urlType ->
+                    navController.navigateToDetail(urlType)
                 }
             )
         }
         composable(route = Image.route) {
             ImageScreen(
                 images = images,
-                onClickSeeImageDetail = { accountType ->
-                    navController.navigateSingleTopTo(accountType)
+                onClickSeeImageDetail = { urlType ->
+                    navController.navigateToDetail(urlType)
                 }
             )
+        }
+        composable(
+            route = SearchDetail.routeWithArgs,
+            arguments = SearchDetail.arguments
+        ) { navBackStackEntry ->
+            val urlType = navBackStackEntry.arguments?.getString(SearchDetail.urlTypeArg)
+            Timber.tag("SearchNavHost").d(urlType)
+            SearchDetailScreen(urlType)
         }
     }
 }
@@ -67,6 +77,6 @@ fun NavHostController.navigateSingleTopTo(route: String) =
         restoreState = true
     }
 
-private fun NavHostController.navigateToDetail(query: String) {
-    this.navigateSingleTopTo("${Detail.route}/$query")
+private fun NavHostController.navigateToDetail(urlType: String) {
+    this.navigateSingleTopTo("${SearchDetail.route}/$urlType")
 }
