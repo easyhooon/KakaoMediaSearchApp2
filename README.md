@@ -3,7 +3,7 @@
 # How to build #
 AGP 버전 상, Android Studio Flamingo 버전 이상에서 Build가 가능합니다.
 
-빌드 전, 'secrets.defaults.properties'에 다음과 같이 API KEY 값을 추가해야 합니다.
+빌드 전, 'secrets.defaults.properties' 파일을 생성하여 다음과 같이 API KEY 값을 추가해야 합니다.
 ```
 # secrets.defaults.properties
 KAKAO_API_URL="https://dapi.kakao.com/"
