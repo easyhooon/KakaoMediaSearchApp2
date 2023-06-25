@@ -2,21 +2,23 @@ package com.kenshi.presentation.view.ui
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.annotation.IdRes
+import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.google.android.material.tabs.TabLayout
 import com.kenshi.presentation.R
-import com.kenshi.presentation.view.base.BaseActivity
 import com.kenshi.presentation.databinding.ActivitySearchViewBinding
 import com.kenshi.presentation.util.Constants.SEARCH_TIME_DELAY
 import com.kenshi.presentation.util.repeatOnStarted
 import com.kenshi.presentation.util.textChangesToFlow
+import com.kenshi.presentation.view.base.BaseActivity
 import com.kenshi.presentation.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 @OptIn(FlowPreview::class)
 @AndroidEntryPoint
@@ -36,22 +38,21 @@ class SearchViewActivity : BaseActivity<ActivitySearchViewBinding>(R.layout.acti
     }
 
     private fun initObserver() {
-        // 하나의 flow 에서 수명 주기 인식 수집을 진행 하기만 하면 되는 경우엔 Flow.flowWithLifecycle 메서드를 사용하면 됨
         repeatOnStarted {
-            val editTextFlow = binding.etSearch.textChangesToFlow()
-
-            editTextFlow
-                .debounce(SEARCH_TIME_DELAY)
-                .filter {
-                    it?.isNotEmpty()!!
-                }
-                .onEach { text ->
-                    text?.let {
-                        val query = it.toString().trim()
-                        searchViewModel.updateSearchQuery(query)
+            launch {
+                val editTextFlow = binding.etSearch.textChangesToFlow()
+                editTextFlow
+                    .debounce(SEARCH_TIME_DELAY)
+                    .filter {
+                        it?.isNotEmpty()!!
                     }
-                }
-                .launchIn(this)
+                    .collect { text ->
+                        text?.let {
+                            val query = it.toString().trim()
+                            searchViewModel.updateSearchQuery(query)
+                        }
+                    }
+            }
         }
     }
 
@@ -67,16 +68,19 @@ class SearchViewActivity : BaseActivity<ActivitySearchViewBinding>(R.layout.acti
                         0 -> {
                             navController.popBackStack()
                             navController.navigate(R.id.blog_search_list_fragment)
+                            // navController.navigateSingleTopTo(R.id.blog_search_list_fragment)
                         }
 
                         1 -> {
                             navController.popBackStack()
                             navController.navigate(R.id.video_search_list_fragment)
+                            // navController.navigateSingleTopTo(R.id.video_search_list_fragment)
                         }
 
                         else -> {
                             navController.popBackStack()
                             navController.navigate(R.id.image_search_list_fragment)
+                            // navController.navigateSingleTopTo(R.id.image_search_list_fragment)
                         }
                     }
                 }
@@ -89,5 +93,15 @@ class SearchViewActivity : BaseActivity<ActivitySearchViewBinding>(R.layout.acti
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    fun NavController.navigateSingleTopTo(
+        @IdRes destinationId: Int,
+        args: Bundle? = null,
+    ) {
+        val builder = NavOptions.Builder()
+            .setLaunchSingleTop(true)
+            .setPopUpTo(graph.startDestinationId, false)
+        navigate(destinationId, args, builder.build())
     }
 }

@@ -32,9 +32,11 @@ import com.kenshi.presentation.compose.ui.components.SearchTabRow
 import com.kenshi.presentation.viewmodel.SearchViewModel
 
 //TODO 검색 debounce 적용
+// LoadState 적용
 @Composable
-fun KakaoMediaSearchApp() {
-    val viewModel: SearchViewModel = hiltViewModel()
+fun KakaoMediaSearchApp(
+    viewModel: SearchViewModel = hiltViewModel()
+) {
     val searchQuery by viewModel.searchQuery.collectAsState()
     val blogItems = viewModel.searchBlogs.collectAsLazyPagingItems()
     val videoItems = viewModel.searchVideos.collectAsLazyPagingItems()
