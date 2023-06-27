@@ -15,12 +15,6 @@ class SearchDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     val url: String = savedStateHandle[SearchDetail.urlTypeArg] ?: ""
-
-    val webViewState = WebViewState(
-        WebContent.Url(
-            url = url,
-            additionalHttpHeaders = emptyMap()
-        )
-    )
+    val webViewState = WebViewState(WebContent.Url(url = url))
     val webViewNavigator = WebViewNavigator(viewModelScope)
 }

@@ -14,7 +14,8 @@ import com.kenshi.presentation.compose.ui.video.VideoScreen
 import com.kenshi.presentation.item.blog.BlogItem
 import com.kenshi.presentation.item.image.ImageItem
 import com.kenshi.presentation.item.video.VideoItem
-import timber.log.Timber
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 @Composable
 fun SearchNavHost(
@@ -35,7 +36,8 @@ fun SearchNavHost(
                 blogs = blogs,
                 searchQuery = searchQuery,
                 onClickSeeBlogDetail = { urlType ->
-                    navController.navigateToDetail(urlType)
+                    val encodedUrl = URLEncoder.encode(urlType, StandardCharsets.UTF_8.toString())
+                    navController.navigateToDetail(encodedUrl)
                 }
             )
         }
@@ -43,7 +45,8 @@ fun SearchNavHost(
             VideoScreen(
                 videos = videos,
                 onClickSeeVideoDetail = { urlType ->
-                    navController.navigateToDetail(urlType)
+                    val encodedUrl = URLEncoder.encode(urlType, StandardCharsets.UTF_8.toString())
+                    navController.navigateToDetail(encodedUrl)
                 }
             )
         }
@@ -51,17 +54,16 @@ fun SearchNavHost(
             ImageScreen(
                 images = images,
                 onClickSeeImageDetail = { urlType ->
-                    navController.navigateToDetail(urlType)
+                    val encodedUrl = URLEncoder.encode(urlType, StandardCharsets.UTF_8.toString())
+                    navController.navigateToDetail(encodedUrl)
                 }
             )
         }
         composable(
             route = SearchDetail.routeWithArgs,
             arguments = SearchDetail.arguments
-        ) { navBackStackEntry ->
-            val urlType = navBackStackEntry.arguments?.getString(SearchDetail.urlTypeArg)
-            Timber.tag("SearchNavHost").d(urlType)
-            SearchDetailScreen(urlType)
+        ) {
+            SearchDetailScreen()
         }
     }
 }
@@ -79,4 +81,6 @@ fun NavHostController.navigateSingleTopTo(route: String) =
 
 private fun NavHostController.navigateToDetail(urlType: String) {
     this.navigateSingleTopTo("${SearchDetail.route}/$urlType")
+    // don't do this
+    // this.navigateSingleTopTo("${SearchDetail.route}?${SearchDetail.urlTypeArg}=$urlType")
 }
