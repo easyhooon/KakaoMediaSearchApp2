@@ -30,13 +30,12 @@ import com.kenshi.presentation.compose.navigation.SearchNavHost
 import com.kenshi.presentation.compose.navigation.Video
 import com.kenshi.presentation.compose.navigation.navigateSingleTopTo
 import com.kenshi.presentation.compose.ui.components.SearchTabRow
-import com.kenshi.presentation.viewmodel.SearchViewModel
+import com.kenshi.presentation.viewmodel.SearchComposeViewModel
 
-//TODO 검색 debounce 적용 (snapshotFlow 이용)
-// LoadState 적용
+// TODO LoadState 적용
 @Composable
 fun KakaoMediaSearchApp(
-    viewModel: SearchViewModel = hiltViewModel()
+    viewModel: SearchComposeViewModel = hiltViewModel()
 ) {
     val searchQuery by viewModel.searchQuery.collectAsState()
     val blogItems = viewModel.searchBlogs.collectAsLazyPagingItems()
