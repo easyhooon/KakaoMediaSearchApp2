@@ -14,7 +14,6 @@ import android.text.SpannableString
 import android.text.TextWatcher
 import android.widget.EditText
 import androidx.annotation.IdRes
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -25,8 +24,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 fun EditText.textChangesToFlow(): Flow<CharSequence?> {
@@ -40,22 +37,12 @@ fun EditText.textChangesToFlow(): Flow<CharSequence?> {
         }
         addTextChangedListener(listener)
         awaitClose { removeTextChangedListener(listener) }
-    }.onStart {
-        emit(text)
     }
 }
 
 fun LifecycleOwner.repeatOnStarted(block: suspend CoroutineScope.() -> Unit) {
     lifecycleScope.launch {
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED, block)
-    }
-}
-
-fun <T> Fragment.collectLatestLifecycleFlow(flow: Flow<T>, collect: suspend (T) -> Unit) {
-    viewLifecycleOwner.lifecycleScope.launch {
-        repeatOnLifecycle(Lifecycle.State.STARTED) {
-            flow.collectLatest(collect)
-        }
     }
 }
 
