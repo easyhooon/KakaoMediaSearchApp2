@@ -3,15 +3,15 @@
 android-gradle-plugin = "8.0.2"
 secrets-gradle-plugin = "2.0.1"
 
-kotlin = "1.8.22"
+kotlin = "1.8.21"
 
 kotlinx-coroutines = "1.7.1"
-kotlinx-serialization-json = "1.5.0"
+kotlinx-serialization-json = "1.5.1"
 kotlinx-datetime = "0.4.0"
 
 android-material = "1.9.0"
 
-androidx-compose-compiler = "1.4.5"
+androidx-compose-compiler = "1.4.7"
 androidx-core-ktx = "1.10.1"
 androidx-lifecycle-runtime = "2.6.1"
 androidx-activity-compose = "1.7.2"
@@ -35,7 +35,7 @@ hilt = "2.46.1"
 hilt-navigation-fragment = "1.0.0"
 hilt-navigation-compose = "1.0.0"
 
-ksp = "1.8.22-1.0.11"
+ksp = "1.8.21-1.0.11"
 coil = "2.4.0"
 timber = "5.0.1"
 desugar-jdk = "2.0.3"
