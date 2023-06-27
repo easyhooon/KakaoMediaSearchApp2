@@ -24,14 +24,15 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.kenshi.presentation.R
+import com.kenshi.presentation.compose.navigation.Blog
+import com.kenshi.presentation.compose.navigation.Image
 import com.kenshi.presentation.compose.navigation.SearchNavHost
 import com.kenshi.presentation.compose.navigation.Video
 import com.kenshi.presentation.compose.navigation.navigateSingleTopTo
-import com.kenshi.presentation.compose.navigation.searchTabRowScreens
 import com.kenshi.presentation.compose.ui.components.SearchTabRow
 import com.kenshi.presentation.viewmodel.SearchViewModel
 
-//TODO 검색 debounce 적용
+//TODO 검색 debounce 적용 (snapshotFlow 이용)
 // LoadState 적용
 @Composable
 fun KakaoMediaSearchApp(
@@ -88,3 +89,5 @@ fun KakaoMediaSearchApp(
         }
     }
 }
+
+private val searchTabRowScreens = listOf(Blog, Video, Image)

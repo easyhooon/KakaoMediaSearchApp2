@@ -21,6 +21,9 @@ fun SearchTabRow(
     currentScreen: SearchDestination
 ) {
     val selectedIndex = allScreens.indexOf(currentScreen)
+//    val selectedIndex = remember (allScreens) {
+//        derivedStateOf { allScreens.indexOf(currentScreen) }
+//    }
     TabRow(
         selectedTabIndex = selectedIndex,
         containerColor = MaterialTheme.colorScheme.background,

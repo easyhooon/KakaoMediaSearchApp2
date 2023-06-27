@@ -85,7 +85,7 @@ fun BlogTitleText(
     title: String
 ) {
     val plainText = HtmlCompat.fromHtml(title, HtmlCompat.FROM_HTML_MODE_COMPACT).toString()
-    val words = plainText.split(" ").toMutableList()
+    val words = plainText.split(" ")
     Text(
         text = buildAnnotatedString {
             words.forEachIndexed { index, word ->

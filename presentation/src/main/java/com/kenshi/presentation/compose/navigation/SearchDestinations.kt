@@ -32,5 +32,3 @@ object SearchDetail: SearchDestination {
         navArgument(urlTypeArg) { type = NavType.StringType}
     )
 }
-
-val searchTabRowScreens = listOf(Blog, Video, Image)
