@@ -8,14 +8,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.kenshi.presentation.R
-import com.kenshi.presentation.view.adapter.SearchLoadStateAdapter
-import com.kenshi.presentation.view.adapter.VideoSearchAdapter
-import com.kenshi.presentation.view.base.BaseFragment
 import com.kenshi.presentation.databinding.FragmentVideoSearchListBinding
 import com.kenshi.presentation.util.repeatOnStarted
 import com.kenshi.presentation.util.safeNavigate
+import com.kenshi.presentation.view.adapter.SearchLoadStateAdapter
+import com.kenshi.presentation.view.adapter.VideoSearchAdapter
+import com.kenshi.presentation.view.base.BaseFragment
 import com.kenshi.presentation.view.ui.SearchViewModel
-import com.kenshi.presentation.view.ui.video.VideoSearchListFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

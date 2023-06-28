@@ -26,15 +26,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combineTransform
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
-//TODO {"errorType":"MissingParameter","message":"query parameter required"} 해결
-// Compose 에서만 발생하는 문제
-// 빈 값 필터가 안되는 듯
+//TODO 처음 진입시 로딩이 돌고 있는 문제
 @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 @HiltViewModel
 class SearchComposeViewModel @Inject constructor(
@@ -45,8 +44,10 @@ class SearchComposeViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _searchQuery: SaveableMutableStateFlow<String?> = savedStateHandle.getMutableStateFlow(
-        KEY_SEARCH_TEXT, null)
+    private val _searchQuery: SaveableMutableStateFlow<String?> =
+        savedStateHandle.getMutableStateFlow(
+            KEY_SEARCH_TEXT, null
+        )
     val searchQuery = _searchQuery.asStateFlow()
 
     private val debouncedSearchQuery: Flow<String?> = searchQuery
@@ -67,6 +68,7 @@ class SearchComposeViewModel @Inject constructor(
 
     val searchBlogs: Flow<PagingData<BlogItem>> =
         debouncedSearchQuery.filterNotNull()
+            .filter { it.isNotEmpty() }
             .combineTransform(searchSortMode) { query, sortMode -> emit(query to sortMode) }
             .flatMapLatest { (query, sortMode) ->
                 getBlogSearchListUseCase(query, sortMode)
@@ -80,6 +82,7 @@ class SearchComposeViewModel @Inject constructor(
 
     val searchVideos: Flow<PagingData<VideoItem>> =
         debouncedSearchQuery.filterNotNull()
+            .filter { it.isNotEmpty() }
             .combineTransform(searchSortMode) { query, sortMode -> emit(query to sortMode) }
             .flatMapLatest { (query, sortMode) ->
                 getVideoSearchListUseCase(query, sortMode)
@@ -93,6 +96,7 @@ class SearchComposeViewModel @Inject constructor(
 
     val searchImages: Flow<PagingData<ImageItem>> =
         debouncedSearchQuery.filterNotNull()
+            .filter { it.isNotEmpty() }
             .combineTransform(searchSortMode) { query, sortMode -> emit(query to sortMode) }
             .flatMapLatest { (query, sortMode) ->
                 getImageSearchListUseCase(query, sortMode)
