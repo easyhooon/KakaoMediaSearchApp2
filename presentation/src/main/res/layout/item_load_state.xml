@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="@string/error_message"
         android:textColor="@color/design_default_color_error"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
