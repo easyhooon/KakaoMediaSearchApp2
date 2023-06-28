@@ -49,6 +49,10 @@ class SearchComposeViewModel @Inject constructor(
         .debounce(SEARCH_TIME_DELAY)
         .distinctUntilChanged()
 
+    fun updateSearchQuery(query: String) {
+        _searchQuery.value = query
+    }
+
     private val searchSortMode: StateFlow<String> =
         getSortModeUseCase()
             .stateIn(
@@ -95,10 +99,6 @@ class SearchComposeViewModel @Inject constructor(
                     }
             }
             .cachedIn(viewModelScope)
-
-    fun updateSearchQuery(query: String) {
-        _searchQuery.value = query
-    }
 
     companion object {
         private const val KEY_SEARCH_TEXT = "search_text"

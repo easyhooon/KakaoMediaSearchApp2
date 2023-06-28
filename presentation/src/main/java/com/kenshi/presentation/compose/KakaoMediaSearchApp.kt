@@ -57,7 +57,12 @@ fun KakaoMediaSearchApp(
                 onValueChange = {
                     viewModel.updateSearchQuery(it)
                 },
-                leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "Search Icon") },
+                leadingIcon = {
+                    Icon(
+                        Icons.Filled.Search,
+                        contentDescription = "Search Icon"
+                    )
+                },
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Done
                 ),
