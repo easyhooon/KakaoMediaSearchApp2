@@ -31,7 +31,6 @@ import com.kenshi.presentation.compose.navigation.Video
 import com.kenshi.presentation.compose.ui.components.SearchTabRow
 import com.kenshi.presentation.util.navigateSingleTopTo
 
-// TODO LoadStateFooter 적용
 @Composable
 fun KakaoMediaSearchApp(
     viewModel: SearchComposeViewModel = hiltViewModel()
