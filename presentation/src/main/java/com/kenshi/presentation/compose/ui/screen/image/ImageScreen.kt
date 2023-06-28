@@ -1,4 +1,4 @@
-package com.kenshi.presentation.compose.ui.image
+package com.kenshi.presentation.compose.ui.screen.image
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
@@ -7,6 +7,7 @@ import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.kenshi.presentation.compose.ui.components.ImageCard
 import com.kenshi.presentation.item.image.ImageItem
+import com.kenshi.presentation.util.loadStateFooterWithRetry
 
 @Composable
 fun ImageScreen(
@@ -24,5 +25,9 @@ fun ImageScreen(
                 ImageCard(imageItem = it, onClick = onClickSeeImageDetail)
             }
         }
+        loadStateFooterWithRetry(
+            pagingItems = images,
+            onRetry = { images.retry() }
+        )
     }
 }

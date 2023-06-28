@@ -1,4 +1,4 @@
-package com.kenshi.presentation.compose.ui.video
+package com.kenshi.presentation.compose.ui.screen.video
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
@@ -7,6 +7,7 @@ import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.kenshi.presentation.compose.ui.components.VideoCard
 import com.kenshi.presentation.item.video.VideoItem
+import com.kenshi.presentation.util.loadStateFooterWithRetry
 
 @Composable
 fun VideoScreen(
@@ -24,5 +25,9 @@ fun VideoScreen(
                 VideoCard(videoItem = it, onClick = onClickSeeVideoDetail)
             }
         }
+        loadStateFooterWithRetry(
+            pagingItems = videos,
+            onRetry = { videos.retry() }
+        )
     }
 }

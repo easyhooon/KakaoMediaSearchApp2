@@ -1,4 +1,4 @@
-package com.kenshi.presentation.compose.ui.blog
+package com.kenshi.presentation.compose.ui.screen.blog
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
@@ -7,6 +7,7 @@ import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.kenshi.presentation.compose.ui.components.BlogCard
 import com.kenshi.presentation.item.blog.BlogItem
+import com.kenshi.presentation.util.loadStateFooterWithRetry
 
 @Composable
 fun BlogScreen(
@@ -25,5 +26,9 @@ fun BlogScreen(
                 BlogCard(blogItem = it, searchQuery, onClick = onClickSeeBlogDetail)
             }
         }
+        loadStateFooterWithRetry(
+            pagingItems = blogs,
+            onRetry = { blogs.retry() }
+        )
     }
 }
