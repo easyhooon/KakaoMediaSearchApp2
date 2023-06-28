@@ -1,4 +1,4 @@
-package com.kenshi.presentation.view.ui.video
+package com.kenshi.presentation.view.ui.screens.video
 
 import android.os.Bundle
 import android.view.View
@@ -15,6 +15,7 @@ import com.kenshi.presentation.databinding.FragmentVideoSearchListBinding
 import com.kenshi.presentation.util.repeatOnStarted
 import com.kenshi.presentation.util.safeNavigate
 import com.kenshi.presentation.view.ui.SearchViewModel
+import com.kenshi.presentation.view.ui.video.VideoSearchListFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

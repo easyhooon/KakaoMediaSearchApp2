@@ -15,7 +15,7 @@
         </activity>
 
         <activity
-            android:name=".compose.SearchComposeActivity"
+            android:name=".compose.ui.SearchComposeActivity"
             android:exported="false" />
 
         <activity

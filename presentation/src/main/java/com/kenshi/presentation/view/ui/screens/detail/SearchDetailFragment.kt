@@ -1,4 +1,4 @@
-package com.kenshi.presentation.view.ui.video.screens.detail
+package com.kenshi.presentation.view.ui.screens.detail
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap

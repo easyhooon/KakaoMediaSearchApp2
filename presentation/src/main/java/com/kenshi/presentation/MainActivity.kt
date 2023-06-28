@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.kenshi.presentation.view.ui.SearchViewActivity
 import com.kenshi.presentation.databinding.ActivityMainBinding
 import com.kenshi.presentation.view.base.BaseActivity
-import com.kenshi.presentation.compose.SearchComposeActivity
+import com.kenshi.presentation.compose.ui.SearchComposeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

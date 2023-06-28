@@ -1,4 +1,4 @@
-package com.kenshi.presentation.compose
+package com.kenshi.presentation.compose.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

@@ -1,4 +1,4 @@
-package com.kenshi.presentation.view.ui.video.screens.image
+package com.kenshi.presentation.view.ui.screens.image
 
 import android.os.Bundle
 import android.view.View
