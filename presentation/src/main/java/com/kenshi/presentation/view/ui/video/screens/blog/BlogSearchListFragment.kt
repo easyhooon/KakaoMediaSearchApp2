@@ -1,4 +1,4 @@
-package com.kenshi.presentation.view.ui.blog
+package com.kenshi.presentation.view.ui.video.screens.blog
 
 import android.os.Bundle
 import android.view.View
@@ -14,7 +14,8 @@ import com.kenshi.presentation.view.base.BaseFragment
 import com.kenshi.presentation.databinding.FragmentBlogSearchListBinding
 import com.kenshi.presentation.util.repeatOnStarted
 import com.kenshi.presentation.util.safeNavigate
-import com.kenshi.presentation.viewmodel.SearchViewModel
+import com.kenshi.presentation.view.ui.SearchViewModel
+import com.kenshi.presentation.view.ui.blog.BlogSearchListFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.kenshi.presentation.view.ui.detail
+package com.kenshi.presentation.view.ui.video.screens.detail
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
@@ -9,6 +9,7 @@ import androidx.navigation.fragment.navArgs
 import com.kenshi.presentation.R
 import com.kenshi.presentation.view.base.BaseFragment
 import com.kenshi.presentation.databinding.FragmentSearchDetailBinding
+import com.kenshi.presentation.view.ui.detail.SearchDetailFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

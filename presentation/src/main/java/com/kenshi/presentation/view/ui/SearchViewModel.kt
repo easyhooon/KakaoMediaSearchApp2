@@ -1,4 +1,4 @@
-package com.kenshi.presentation.viewmodel
+package com.kenshi.presentation.view.ui
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -14,27 +14,23 @@ import com.kenshi.presentation.item.blog.BlogItem
 import com.kenshi.presentation.item.image.ImageItem
 import com.kenshi.presentation.item.video.VideoItem
 import com.kenshi.presentation.mapper.toItem
-import com.kenshi.presentation.util.Constants.SEARCH_TIME_DELAY
 import com.kenshi.presentation.util.SaveableMutableStateFlow
 import com.kenshi.presentation.util.getMutableStateFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combineTransform
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
-@OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
-class SearchComposeViewModel @Inject constructor(
+class SearchViewModel @Inject constructor(
     private val getBlogSearchListUseCase: GetBlogSearchListUseCase,
     private val getImageSearchListUseCase: GetImageSearchListUseCase,
     private val getVideoSearchListUseCase: GetVideoSearchListUseCase,
@@ -42,16 +38,9 @@ class SearchComposeViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _searchQuery: SaveableMutableStateFlow<String?> = savedStateHandle.getMutableStateFlow(KEY_SEARCH_TEXT, null)
+    private val _searchQuery: SaveableMutableStateFlow<String?> = savedStateHandle.getMutableStateFlow(
+        KEY_SEARCH_TEXT, null)
     val searchQuery = _searchQuery.asStateFlow()
-
-    private val debouncedSearchQuery: Flow<String?> = searchQuery
-        .debounce(SEARCH_TIME_DELAY)
-        .distinctUntilChanged()
-
-    fun updateSearchQuery(query: String) {
-        _searchQuery.value = query
-    }
 
     private val searchSortMode: StateFlow<String> =
         getSortModeUseCase()
@@ -62,7 +51,7 @@ class SearchComposeViewModel @Inject constructor(
             )
 
     val searchBlogs: Flow<PagingData<BlogItem>> =
-        debouncedSearchQuery.filterNotNull()
+        searchQuery.filterNotNull()
             .combineTransform(searchSortMode) { query, sortMode -> emit(query to sortMode) }
             .flatMapLatest { (query, sortMode) ->
                 getBlogSearchListUseCase(query, sortMode)
@@ -75,7 +64,7 @@ class SearchComposeViewModel @Inject constructor(
             .cachedIn(viewModelScope)
 
     val searchVideos: Flow<PagingData<VideoItem>> =
-        debouncedSearchQuery.filterNotNull()
+        searchQuery.filterNotNull()
             .combineTransform(searchSortMode) { query, sortMode -> emit(query to sortMode) }
             .flatMapLatest { (query, sortMode) ->
                 getVideoSearchListUseCase(query, sortMode)
@@ -88,7 +77,7 @@ class SearchComposeViewModel @Inject constructor(
             .cachedIn(viewModelScope)
 
     val searchImages: Flow<PagingData<ImageItem>> =
-        debouncedSearchQuery.filterNotNull()
+        searchQuery.filterNotNull()
             .combineTransform(searchSortMode) { query, sortMode -> emit(query to sortMode) }
             .flatMapLatest { (query, sortMode) ->
                 getImageSearchListUseCase(query, sortMode)
@@ -99,6 +88,10 @@ class SearchComposeViewModel @Inject constructor(
                     }
             }
             .cachedIn(viewModelScope)
+
+    fun updateSearchQuery(query: String) {
+        _searchQuery.value = query
+    }
 
     companion object {
         private const val KEY_SEARCH_TEXT = "search_text"

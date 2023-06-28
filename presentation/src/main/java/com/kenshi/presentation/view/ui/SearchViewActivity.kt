@@ -13,7 +13,6 @@ import com.kenshi.presentation.util.Constants.SEARCH_TIME_DELAY
 import com.kenshi.presentation.util.repeatOnStarted
 import com.kenshi.presentation.util.textChangesToFlow
 import com.kenshi.presentation.view.base.BaseActivity
-import com.kenshi.presentation.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce

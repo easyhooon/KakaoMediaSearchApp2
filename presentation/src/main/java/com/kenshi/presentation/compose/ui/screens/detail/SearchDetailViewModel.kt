@@ -1,4 +1,4 @@
-package com.kenshi.presentation.compose.ui.detail
+package com.kenshi.presentation.compose.ui.screens.detail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

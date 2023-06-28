@@ -1,4 +1,4 @@
-package com.kenshi.presentation.compose.ui.screen.image
+package com.kenshi.presentation.compose.ui.screens.image
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable

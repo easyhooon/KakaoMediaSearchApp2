@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/blog_search_list_fragment"
-        android:name="com.kenshi.presentation.view.ui.blog.BlogSearchListFragment"
+        android:name="com.kenshi.presentation.view.ui.video.screens.blog.BlogSearchListFragment"
         android:label="fragment_blog_search_list"
         tools:layout="@layout/fragment_blog_search_list" >
         <action
@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/image_search_list_fragment"
-        android:name="com.kenshi.presentation.view.ui.image.ImageSearchListFragment"
+        android:name="com.kenshi.presentation.view.ui.screens.image.ImageSearchListFragment"
         android:label="fragment_image_search_list"
         tools:layout="@layout/fragment_image_search_list" >
         <action
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchDetailFragment"
-        android:name="com.kenshi.presentation.view.ui.detail.SearchDetailFragment"
+        android:name="com.kenshi.presentation.view.ui.screens.detail.SearchDetailFragment"
         android:label="fragment_search_detail"
         tools:layout="@layout/fragment_search_detail" >
         <argument

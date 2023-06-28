@@ -1,4 +1,4 @@
-package com.kenshi.presentation.compose
+package com.kenshi.presentation.compose.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,11 +28,10 @@ import com.kenshi.presentation.compose.navigation.Blog
 import com.kenshi.presentation.compose.navigation.Image
 import com.kenshi.presentation.compose.navigation.SearchNavHost
 import com.kenshi.presentation.compose.navigation.Video
-import com.kenshi.presentation.compose.navigation.navigateSingleTopTo
 import com.kenshi.presentation.compose.ui.components.SearchTabRow
-import com.kenshi.presentation.viewmodel.SearchComposeViewModel
+import com.kenshi.presentation.util.navigateSingleTopTo
 
-// TODO LoadState 적용
+// TODO LoadStateFooter 적용
 @Composable
 fun KakaoMediaSearchApp(
     viewModel: SearchComposeViewModel = hiltViewModel()
