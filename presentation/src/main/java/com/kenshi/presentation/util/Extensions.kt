@@ -1,5 +1,12 @@
 package com.kenshi.presentation.util
 
+import android.text.Html
+import android.text.SpannableString
+
+
+fun makeSearchTextBold(text: String): SpannableString {
+    return SpannableString(Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT))
+}
 
 fun extractDateFromDatetime(datetime: String): String {
     return if (datetime.isNotEmpty()) datetime.substring(0, 10) else ""
