@@ -45,7 +45,7 @@ class SearchViewModel @Inject constructor(
 
     private val _searchQuery: SaveableMutableStateFlow<String> =
         savedStateHandle.getMutableStateFlow(
-            KEY_SEARCH_TEXT, ""
+            KEY_SEARCH_QUERY, ""
         )
     val searchQuery = _searchQuery.asStateFlow()
 
@@ -106,6 +106,6 @@ class SearchViewModel @Inject constructor(
             .cachedIn(viewModelScope)
 
     companion object {
-        private const val KEY_SEARCH_TEXT = "search_text"
+        private const val KEY_SEARCH_QUERY = "search_query"
     }
 }
