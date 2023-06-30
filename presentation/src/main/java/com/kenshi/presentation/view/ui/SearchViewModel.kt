@@ -14,21 +14,26 @@ import com.kenshi.presentation.item.blog.BlogItem
 import com.kenshi.presentation.item.image.ImageItem
 import com.kenshi.presentation.item.video.VideoItem
 import com.kenshi.presentation.mapper.toItem
+import com.kenshi.presentation.util.Constants.SEARCH_TIME_DELAY
 import com.kenshi.presentation.util.SaveableMutableStateFlow
 import com.kenshi.presentation.util.getMutableStateFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combineTransform
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
-@OptIn(ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val getBlogSearchListUseCase: GetBlogSearchListUseCase,
@@ -38,9 +43,20 @@ class SearchViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _searchQuery: SaveableMutableStateFlow<String?> = savedStateHandle.getMutableStateFlow(
-        KEY_SEARCH_TEXT, null)
+    private val _searchQuery: SaveableMutableStateFlow<String> =
+        savedStateHandle.getMutableStateFlow(
+            KEY_SEARCH_TEXT, ""
+        )
     val searchQuery = _searchQuery.asStateFlow()
+
+    val debouncedSearchQuery: Flow<String?> = searchQuery
+        .debounce(SEARCH_TIME_DELAY)
+        .filter { it.isNotEmpty() }
+        .distinctUntilChanged()
+
+    fun updateSearchQuery(query: String) {
+        _searchQuery.value = query
+    }
 
     private val searchSortMode: StateFlow<String> =
         getSortModeUseCase()
@@ -51,7 +67,7 @@ class SearchViewModel @Inject constructor(
             )
 
     val searchBlogs: Flow<PagingData<BlogItem>> =
-        searchQuery.filterNotNull()
+        debouncedSearchQuery.filterNotNull()
             .combineTransform(searchSortMode) { query, sortMode -> emit(query to sortMode) }
             .flatMapLatest { (query, sortMode) ->
                 getBlogSearchListUseCase(query, sortMode)
@@ -64,7 +80,7 @@ class SearchViewModel @Inject constructor(
             .cachedIn(viewModelScope)
 
     val searchVideos: Flow<PagingData<VideoItem>> =
-        searchQuery.filterNotNull()
+        debouncedSearchQuery.filterNotNull()
             .combineTransform(searchSortMode) { query, sortMode -> emit(query to sortMode) }
             .flatMapLatest { (query, sortMode) ->
                 getVideoSearchListUseCase(query, sortMode)
@@ -77,7 +93,7 @@ class SearchViewModel @Inject constructor(
             .cachedIn(viewModelScope)
 
     val searchImages: Flow<PagingData<ImageItem>> =
-        searchQuery.filterNotNull()
+        debouncedSearchQuery.filterNotNull()
             .combineTransform(searchSortMode) { query, sortMode -> emit(query to sortMode) }
             .flatMapLatest { (query, sortMode) ->
                 getImageSearchListUseCase(query, sortMode)
@@ -88,10 +104,6 @@ class SearchViewModel @Inject constructor(
                     }
             }
             .cachedIn(viewModelScope)
-
-    fun updateSearchQuery(query: String) {
-        _searchQuery.value = query
-    }
 
     companion object {
         private const val KEY_SEARCH_TEXT = "search_text"

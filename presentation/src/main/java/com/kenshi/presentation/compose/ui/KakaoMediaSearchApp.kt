@@ -30,14 +30,16 @@ import com.kenshi.presentation.compose.navigation.SearchNavHost
 import com.kenshi.presentation.compose.navigation.Video
 import com.kenshi.presentation.compose.ui.components.SearchTabRow
 import com.kenshi.presentation.util.navigateSingleTopTo
+import com.kenshi.presentation.view.ui.SearchViewModel
 
 //TODO Compose,View 둘다
 // 인터넷 연결이 안되어있을 경우 failed with exception: java.nio.channels.UnresolvedAddressException
 @Composable
 fun KakaoMediaSearchApp(
-    viewModel: SearchComposeViewModel = hiltViewModel()
+    viewModel: SearchViewModel = hiltViewModel()
 ) {
     val searchQuery by viewModel.searchQuery.collectAsState()
+    val debouncedSearchQuery by viewModel.debouncedSearchQuery.collectAsState(null)
     val blogItems = viewModel.searchBlogs.collectAsLazyPagingItems()
     val videoItems = viewModel.searchVideos.collectAsLazyPagingItems()
     val imageItems = viewModel.searchImages.collectAsLazyPagingItems()
@@ -52,7 +54,7 @@ fun KakaoMediaSearchApp(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
-                value = searchQuery ?: "",
+                value = searchQuery,
                 singleLine = true,
                 onValueChange = {
                     viewModel.updateSearchQuery(it)
@@ -82,7 +84,8 @@ fun KakaoMediaSearchApp(
             )
             SearchNavHost(
                 navController = navController,
-                searchQuery = searchQuery ?: "",
+                searchQuery = searchQuery,
+                debouncedSearchQuery = debouncedSearchQuery ?: "",
                 blogs = blogItems,
                 videos = videoItems,
                 images = imageItems,

@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets
 fun SearchNavHost(
     navController: NavHostController,
     searchQuery: String,
+    debouncedSearchQuery: String,
     blogs: LazyPagingItems<BlogItem>,
     videos: LazyPagingItems<VideoItem>,
     images: LazyPagingItems<ImageItem>,
@@ -35,6 +36,7 @@ fun SearchNavHost(
             BlogScreen(
                 blogs = blogs,
                 searchQuery = searchQuery,
+                debouncedSearchQuery = debouncedSearchQuery,
                 onClickSeeBlogDetail = { urlType ->
                     val encodedUrl = URLEncoder.encode(urlType, StandardCharsets.UTF_8.toString())
                     navController.navigateToDetail(encodedUrl)
@@ -44,7 +46,7 @@ fun SearchNavHost(
         composable(route = Video.route) {
             VideoScreen(
                 videos = videos,
-                searchQuery = searchQuery,
+                debouncedSearchQuery = debouncedSearchQuery,
                 onClickSeeVideoDetail = { urlType ->
                     val encodedUrl = URLEncoder.encode(urlType, StandardCharsets.UTF_8.toString())
                     navController.navigateToDetail(encodedUrl)
@@ -54,7 +56,7 @@ fun SearchNavHost(
         composable(route = Image.route) {
             ImageScreen(
                 images = images,
-                searchQuery = searchQuery,
+                debouncedSearchQuery = debouncedSearchQuery,
                 onClickSeeImageDetail = { urlType ->
                     val encodedUrl = URLEncoder.encode(urlType, StandardCharsets.UTF_8.toString())
                     navController.navigateToDetail(encodedUrl)

@@ -9,18 +9,13 @@ import androidx.navigation.findNavController
 import com.google.android.material.tabs.TabLayout
 import com.kenshi.presentation.R
 import com.kenshi.presentation.databinding.ActivitySearchViewBinding
-import com.kenshi.presentation.util.Constants.SEARCH_TIME_DELAY
 import com.kenshi.presentation.util.hideKeyboard
 import com.kenshi.presentation.util.repeatOnStarted
 import com.kenshi.presentation.util.textChangesToFlow
 import com.kenshi.presentation.view.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 
-@OptIn(FlowPreview::class)
 @AndroidEntryPoint
 class SearchViewActivity : BaseActivity<ActivitySearchViewBinding>(R.layout.activity_search_view) {
 
@@ -40,13 +35,7 @@ class SearchViewActivity : BaseActivity<ActivitySearchViewBinding>(R.layout.acti
     private fun initObserver() {
         repeatOnStarted {
             launch {
-                val editTextFlow = binding.etSearch.textChangesToFlow()
-                editTextFlow
-                    .debounce(SEARCH_TIME_DELAY)
-                    .filter {
-                        it?.isNotEmpty()!!
-                    }
-                    .collect { text ->
+                binding.etSearch.textChangesToFlow().collect { text ->
                         text?.let {
                             val query = it.toString().trim()
                             viewModel.updateSearchQuery(query)
@@ -54,7 +43,7 @@ class SearchViewActivity : BaseActivity<ActivitySearchViewBinding>(R.layout.acti
                     }
             }
             launch {
-                viewModel.searchQuery.collect {
+                viewModel.debouncedSearchQuery.collect {
                     hideKeyboard()
                 }
             }
