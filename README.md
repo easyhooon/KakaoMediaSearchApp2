@@ -24,6 +24,7 @@ KAKAO_API_KEY="KakaoAK c9bf3b615072a170b64208b1eee62e0d"
 - [x] Paging3 Library를 사용하여 미디어 검색 기능 구현 
 - [x] 기존의 뷰 시스템을 통해 미디어 검색 화면 구성(블로그/동영상/사진 API 를 시용하여 각각의 탭 내에서 검색 결과 리스트 조회)
 - [x] Jetpack Compose를 사용하여 미디어 검색 화면 구성(블로그/동영상/사진 API 를 시용하여 각각의 탭 내에서 검색 결과 리스트 조회)
+- [ ] 기존의 뷰의 Theme 을 Compose Theme 으로 그대로 옮겨, 똑같은 UI 만들기 
 - [ ] 인터넷 에러 핸들링
 - [ ] SortType(정확도순, 최신순) 변경하는 화면 구현 
 - [ ] Convention Plugin 적용
