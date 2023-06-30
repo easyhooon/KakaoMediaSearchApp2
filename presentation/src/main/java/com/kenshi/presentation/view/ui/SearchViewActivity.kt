@@ -8,6 +8,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.google.android.material.tabs.TabLayout
 import com.kenshi.presentation.R
+import com.kenshi.presentation.SearchViewModel
 import com.kenshi.presentation.databinding.ActivitySearchViewBinding
 import com.kenshi.presentation.util.hideKeyboard
 import com.kenshi.presentation.util.repeatOnStarted

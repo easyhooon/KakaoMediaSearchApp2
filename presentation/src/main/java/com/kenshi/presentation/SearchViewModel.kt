@@ -1,4 +1,4 @@
-package com.kenshi.presentation.view.ui
+package com.kenshi.presentation
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
