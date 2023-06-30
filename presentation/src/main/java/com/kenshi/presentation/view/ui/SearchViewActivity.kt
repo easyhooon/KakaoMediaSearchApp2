@@ -37,11 +37,11 @@ class SearchViewActivity : BaseActivity<ActivitySearchViewBinding>(R.layout.acti
         repeatOnStarted {
             launch {
                 binding.etSearch.textChangesToFlow().collect { text ->
-                        text?.let {
-                            val query = it.toString().trim()
-                            viewModel.updateSearchQuery(query)
-                        }
+                    text?.let {
+                        val query = it.toString().trim()
+                        viewModel.updateSearchQuery(query)
                     }
+                }
             }
             launch {
                 viewModel.debouncedSearchQuery.collect {

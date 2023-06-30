@@ -34,6 +34,7 @@ import com.kenshi.presentation.SearchViewModel
 
 //TODO Compose,View 둘다
 // 인터넷 연결이 안되어있을 경우 failed with exception: java.nio.channels.UnresolvedAddressException
+// View 의 theme 적용
 @Composable
 fun KakaoMediaSearchApp(
     viewModel: SearchViewModel = hiltViewModel()
@@ -57,7 +58,8 @@ fun KakaoMediaSearchApp(
                 value = searchQuery,
                 singleLine = true,
                 onValueChange = {
-                    viewModel.updateSearchQuery(it)
+                    val query = it.trim()
+                    viewModel.updateSearchQuery(query)
                 },
                 leadingIcon = {
                     Icon(

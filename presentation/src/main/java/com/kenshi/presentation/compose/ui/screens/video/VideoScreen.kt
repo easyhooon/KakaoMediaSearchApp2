@@ -22,8 +22,8 @@ fun VideoScreen(
     val listState = rememberLazyListState()
     val controller = LocalSoftwareKeyboardController.current
 
-    // images 는 동일한 인스턴스이기 때문에 변하지 않음
-    // searchKeyword 를 key 로 사용해야 함
+    // videos 는 값이 변해도 인스턴스가 동일하기 때문에 변하지 않음
+    // debouncedSearchQuery 를 key 로 사용해야 함
     // String 은 immutable 타입이기 때문에 한번 생성된 문자열은 변경될 수 없으며, 문자열을 수정하면 새로운 문자열이 생성됨
     LaunchedEffect(key1 = debouncedSearchQuery) {
         listState.animateScrollToItem(0)
