@@ -10,6 +10,7 @@ import com.google.android.material.tabs.TabLayout
 import com.kenshi.presentation.R
 import com.kenshi.presentation.databinding.ActivitySearchViewBinding
 import com.kenshi.presentation.util.Constants.SEARCH_TIME_DELAY
+import com.kenshi.presentation.util.hideKeyboard
 import com.kenshi.presentation.util.repeatOnStarted
 import com.kenshi.presentation.util.textChangesToFlow
 import com.kenshi.presentation.view.base.BaseActivity
@@ -23,7 +24,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class SearchViewActivity : BaseActivity<ActivitySearchViewBinding>(R.layout.activity_search_view) {
 
-    private val searchViewModel by viewModels<SearchViewModel>()
+    private val viewModel by viewModels<SearchViewModel>()
 
     private val navController by lazy { findNavController(R.id.nav_host_fragment) }
 
@@ -48,9 +49,14 @@ class SearchViewActivity : BaseActivity<ActivitySearchViewBinding>(R.layout.acti
                     .collect { text ->
                         text?.let {
                             val query = it.toString().trim()
-                            searchViewModel.updateSearchQuery(query)
+                            viewModel.updateSearchQuery(query)
                         }
                     }
+            }
+            launch {
+                viewModel.searchQuery.collect {
+                    hideKeyboard()
+                }
             }
         }
     }

@@ -9,6 +9,12 @@ fun <T : Any> LazyListScope.loadStateFooterWithRetry(
     pagingItems: LazyPagingItems<T>,
     onRetry: () -> Unit
 ) {
+    val loadState = pagingItems.loadState.source
+    val isListEmpty =
+        pagingItems.itemCount < 1 &&
+                loadState.refresh is LoadState.NotLoading &&
+                loadState.append.endOfPaginationReached
+
     when {
         pagingItems.loadState.refresh is LoadState.Loading -> {
             item {

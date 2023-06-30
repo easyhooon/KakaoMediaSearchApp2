@@ -31,6 +31,8 @@ import com.kenshi.presentation.compose.navigation.Video
 import com.kenshi.presentation.compose.ui.components.SearchTabRow
 import com.kenshi.presentation.util.navigateSingleTopTo
 
+//TODO Compose,View 둘다
+// 인터넷 연결이 안되어있을 경우 failed with exception: java.nio.channels.UnresolvedAddressException
 @Composable
 fun KakaoMediaSearchApp(
     viewModel: SearchComposeViewModel = hiltViewModel()

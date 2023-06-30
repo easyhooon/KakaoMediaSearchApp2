@@ -44,6 +44,7 @@ fun SearchNavHost(
         composable(route = Video.route) {
             VideoScreen(
                 videos = videos,
+                searchQuery = searchQuery,
                 onClickSeeVideoDetail = { urlType ->
                     val encodedUrl = URLEncoder.encode(urlType, StandardCharsets.UTF_8.toString())
                     navController.navigateToDetail(encodedUrl)
@@ -53,6 +54,7 @@ fun SearchNavHost(
         composable(route = Image.route) {
             ImageScreen(
                 images = images,
+                searchQuery = searchQuery,
                 onClickSeeImageDetail = { urlType ->
                     val encodedUrl = URLEncoder.encode(urlType, StandardCharsets.UTF_8.toString())
                     navController.navigateToDetail(encodedUrl)

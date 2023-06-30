@@ -9,6 +9,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.kenshi.presentation.R
 import com.kenshi.presentation.databinding.FragmentVideoSearchListBinding
+import com.kenshi.presentation.util.hideKeyboard
 import com.kenshi.presentation.util.repeatOnStarted
 import com.kenshi.presentation.util.safeNavigate
 import com.kenshi.presentation.view.adapter.SearchLoadStateAdapter
@@ -25,7 +26,7 @@ class VideoSearchListFragment :
 
     private val viewModel by activityViewModels<SearchViewModel>()
 
-    private val videoSearchAdapter by lazy {
+    private val searchVideoAdapter by lazy {
         VideoSearchAdapter()
     }
 
@@ -47,19 +48,19 @@ class VideoSearchListFragment :
                     DividerItemDecoration.VERTICAL
                 )
             )
-            adapter = videoSearchAdapter.withLoadStateFooter(
+            adapter = searchVideoAdapter.withLoadStateFooter(
                 footer = SearchLoadStateAdapter(
-                    videoSearchAdapter::retry
+                    searchVideoAdapter::retry
                 )
             )
         }
     }
 
     private fun initListener() {
-        videoSearchAdapter.apply {
+        searchVideoAdapter.apply {
             addLoadStateListener { combinedLoadStates ->
                 val loadState = combinedLoadStates.source
-                val isListEmpty = videoSearchAdapter.itemCount < 1 &&
+                val isListEmpty = searchVideoAdapter.itemCount < 1 &&
                         loadState.refresh is LoadState.NotLoading &&
                         loadState.append.endOfPaginationReached
 
@@ -81,7 +82,9 @@ class VideoSearchListFragment :
         repeatOnStarted {
             launch {
                 viewModel.searchVideos.collectLatest {
-                    videoSearchAdapter.submitData(it)
+                    searchVideoAdapter.submitData(it)
+                    // 동작 안함
+                    requireActivity().hideKeyboard()
                 }
             }
         }
