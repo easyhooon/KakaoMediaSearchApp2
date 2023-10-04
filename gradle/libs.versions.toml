@@ -31,7 +31,7 @@ test-ext-junit4 = "1.1.5"
 test-ext-truth = "1.5.0"
 test-espresso-core = "3.5.1"
 
-hilt = "2.46.1"
+hilt = "2.48.1"
 hilt-navigation-fragment = "1.0.0"
 hilt-navigation-compose = "1.0.0"
 
