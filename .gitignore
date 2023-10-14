@@ -135,5 +135,5 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/androidstudio
 
-# secrets.defaults.properties
-secrets.defaults.properties
+# secrets.properties
+secrets.properties
