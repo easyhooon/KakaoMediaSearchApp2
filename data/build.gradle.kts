@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.android.hilt)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.secrets.gradle.plugin)
@@ -9,7 +9,7 @@ plugins {
 
 android {
     namespace = "com.kenshi.data"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24
@@ -40,10 +40,9 @@ dependencies {
     implementation(project(":domain"))
 
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kotlinx.serialization.core)
     implementation(libs.kotlinx.datetime)
 
-    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core)
     implementation(libs.androidx.paging.runtime)
     implementation(libs.androidx.datastore.preferences)
 
@@ -55,10 +54,10 @@ dependencies {
     implementation(libs.ktor.client.json)
     implementation(libs.ktor.serialization)
 
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    implementation(libs.android.hilt)
+    kapt(libs.android.hilt.compiler)
 }
 
 secrets {
-    defaultPropertiesFileName = "secrets.defaults.properties"
+    defaultPropertiesFileName = "secrets.properties"
 }

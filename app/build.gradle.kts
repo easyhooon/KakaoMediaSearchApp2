@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.android.hilt)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.secrets.gradle.plugin)
@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace = "com.kenshi.kakaomediasearchapp2"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.kenshi.kakaomediasearchapp2"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -60,8 +60,8 @@ dependencies {
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.startup)
 
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    implementation(libs.android.hilt)
+    kapt(libs.android.hilt.compiler)
 
     implementation(libs.timber)
     coreLibraryDesugaring(libs.desugar.jdk)

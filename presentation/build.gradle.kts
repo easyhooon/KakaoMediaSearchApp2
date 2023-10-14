@@ -4,12 +4,12 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.androidx.navigation.safeargs)
-    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.android.hilt)
 }
 
 android {
     namespace = "com.kenshi.presentation"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24
@@ -51,7 +51,7 @@ dependencies {
 
     implementation(libs.kotlinx.coroutines.android)
 
-    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.runtime)
@@ -81,10 +81,10 @@ dependencies {
 
     implementation(libs.accompanist.webview)
 
-    implementation(libs.hilt.android)
+    implementation(libs.android.hilt)
     implementation(libs.androidx.hilt.navigation.fragment)
     implementation(libs.androidx.hilt.navigation.compose)
-    kapt(libs.hilt.compiler)
+    kapt(libs.android.hilt.compiler)
 
     implementation(libs.timber)
     implementation(libs.bundles.coil)
