@@ -16,12 +16,14 @@ class SearchLoadStateViewHolder(private val binding: ItemLoadStateBinding, retry
         }
     }
 
-    fun bind(loadState: LoadState) = with(binding) {
-        if (loadState is LoadState.Error) {
-            tvError.text = itemView.context.getString(R.string.error_message)
+    fun bind(loadState: LoadState) {
+        binding.apply {
+            if (loadState is LoadState.Error) {
+                tvError.text = itemView.context.getString(R.string.error_message)
+            }
+            pbLoadState.isVisible = loadState is LoadState.Loading
+            btnRetry.isVisible = loadState is LoadState.Error
+            tvError.isVisible = loadState is LoadState.Error
         }
-        pbLoadState.isVisible = loadState is LoadState.Loading
-        btnRetry.isVisible = loadState is LoadState.Error
-        tvError.isVisible = loadState is LoadState.Error
     }
 }
