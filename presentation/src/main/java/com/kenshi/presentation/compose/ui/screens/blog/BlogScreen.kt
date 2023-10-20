@@ -10,6 +10,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.kenshi.presentation.compose.ui.components.BlogCard
+import com.kenshi.presentation.compose.ui.components.LoadStateFooter
 import com.kenshi.presentation.item.blog.BlogItem
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -39,9 +40,12 @@ fun BlogScreen(
                 BlogCard(blogItem = it, searchQuery, onClick = onClickSeeBlogDetail)
             }
         }
-//        loadStateFooterWithRetry(
-//            pagingItems = blogs,
-//            onRetry = { blogs.retry() }
-//        )
+
+        item {
+            LoadStateFooter(
+                loadState = blogs.loadState.append,
+                onRetry = { blogs.retry() },
+            )
+        }
     }
 }

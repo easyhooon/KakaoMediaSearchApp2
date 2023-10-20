@@ -9,6 +9,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
+import com.kenshi.presentation.compose.ui.components.LoadStateFooter
 import com.kenshi.presentation.compose.ui.components.VideoCard
 import com.kenshi.presentation.item.video.VideoItem
 
@@ -21,6 +22,12 @@ fun VideoScreen(
 ) {
     val listState = rememberLazyListState()
     val controller = LocalSoftwareKeyboardController.current
+
+    // 트리거 되지 않음
+//    LaunchedEffect(key1 = videos) {
+//        listState.animateScrollToItem(0)
+//        controller?.hide()
+//    }
 
     // videos 는 값이 변해도 인스턴스가 동일하기 때문에 변하지 않음
     // debouncedSearchQuery 를 key 로 사용해야 함
@@ -41,9 +48,12 @@ fun VideoScreen(
                 VideoCard(videoItem = it, onClick = onClickSeeVideoDetail)
             }
         }
-//        loadStateFooterWithRetry(
-//            pagingItems = videos,
-//            onRetry = { videos.retry() }
-//        )
+
+        item {
+            LoadStateFooter(
+                loadState = videos.loadState.append,
+                onRetry = { videos.retry() },
+            )
+        }
     }
 }

@@ -10,6 +10,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.kenshi.presentation.compose.ui.components.ImageCard
+import com.kenshi.presentation.compose.ui.components.LoadStateFooter
 import com.kenshi.presentation.item.image.ImageItem
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -38,9 +39,12 @@ fun ImageScreen(
                 ImageCard(imageItem = it, onClick = onClickSeeImageDetail)
             }
         }
-//        loadStateFooterWithRetry(
-//            pagingItems = images,
-//            onRetry = { images.retry() }
-//        )
+
+        item {
+            LoadStateFooter(
+                loadState = images.loadState.append,
+                onRetry = { images.retry() },
+            )
+        }
     }
 }

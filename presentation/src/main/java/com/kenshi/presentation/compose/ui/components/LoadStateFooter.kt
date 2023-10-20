@@ -12,58 +12,57 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.kenshi.presentation.compose.ui.theme.KakaoMediaSearchApp2Theme
+import androidx.paging.LoadState
+import com.kenshi.presentation.R
 
 @Composable
 fun LoadStateFooter(
     modifier: Modifier = Modifier,
-    errorMessage: String,
-    onRetryClick: () -> Unit,
-    isLoading: Boolean,
+    loadState: LoadState,
+    onRetry: () -> Unit,
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        if (isLoading) {
-            CircularProgressIndicator()
-        } else {
-            Row(
-                modifier = modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+    when (loadState) {
+        is LoadState.Loading -> {
+            Box(
+                modifier = modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = errorMessage,
-                    color = MaterialTheme.colorScheme.error,
-                    fontSize = 16.sp,
-                    modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                )
-                Button(
-                    onClick = { onRetryClick() }
+                CircularProgressIndicator()
+            }
+        }
+
+        is LoadState.Error -> {
+            Box(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Row(
+                    modifier = modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = "Retry")
+                    Text(
+                        text = stringResource(id = R.string.error_message),
+                        color = MaterialTheme.colorScheme.error,
+                        fontSize = 16.sp,
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                    )
+                    Button(
+                        onClick = onRetry
+                    ) {
+                        Text(text = stringResource(id = R.string.retry))
+                    }
                 }
             }
         }
-    }
-}
 
-@Preview
-@Composable
-fun LoadStateFooterPreview() {
-    KakaoMediaSearchApp2Theme {
-        LoadStateFooter(
-            errorMessage = "문제가 발생하였습니다",
-            onRetryClick = {},
-            isLoading = false
-        )
+        else -> {}
     }
 }
