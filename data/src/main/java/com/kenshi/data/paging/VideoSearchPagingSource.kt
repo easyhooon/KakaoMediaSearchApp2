@@ -7,7 +7,9 @@ import com.kenshi.data.service.SearchService
 import com.kenshi.data.util.Constants.PAGING_SIZE
 import com.kenshi.data.util.Constants.STARTING_PAGE_INDEX
 import io.ktor.client.plugins.ResponseException
+import timber.log.Timber
 import java.io.IOException
+import java.nio.channels.UnresolvedAddressException
 
 class VideoSearchPagingSource(
     private val searchService: SearchService,
@@ -25,7 +27,8 @@ class VideoSearchPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Video> {
         return try {
             val pageNumber = params.key ?: STARTING_PAGE_INDEX
-            val response = searchService.getVideoSearchResponse(query, sort, pageNumber, params.loadSize)
+            val response =
+                searchService.getVideoSearchResponse(query, sort, pageNumber, params.loadSize)
             val endOfPaginationReached = response.meta.isEnd
             val data = response.documents
             val prevKey = if (pageNumber == STARTING_PAGE_INDEX)
@@ -41,8 +44,13 @@ class VideoSearchPagingSource(
                 nextKey = nextKey
             )
         } catch (exception: IOException) {
+            Timber.e(exception)
             LoadResult.Error(exception)
         } catch (exception: ResponseException) {
+            Timber.e(exception)
+            LoadResult.Error(exception)
+        } catch (exception: UnresolvedAddressException) {
+            Timber.e(exception)
             LoadResult.Error(exception)
         }
     }

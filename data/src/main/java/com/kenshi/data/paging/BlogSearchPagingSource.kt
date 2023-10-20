@@ -7,7 +7,9 @@ import com.kenshi.data.service.SearchService
 import com.kenshi.data.util.Constants.PAGING_SIZE
 import com.kenshi.data.util.Constants.STARTING_PAGE_INDEX
 import io.ktor.client.plugins.ResponseException
+import timber.log.Timber
 import java.io.IOException
+import java.nio.channels.UnresolvedAddressException
 
 class BlogSearchPagingSource(
     private val searchService: SearchService,
@@ -30,7 +32,8 @@ class BlogSearchPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Blog> {
         return try {
             val pageNumber = params.key ?: STARTING_PAGE_INDEX
-            val response = searchService.getBlogSearchResponse(query, sort, pageNumber, params.loadSize)
+            val response =
+                searchService.getBlogSearchResponse(query, sort, pageNumber, params.loadSize)
             // api response parameter 로 isEnd 를 제공해 줌 이 값을 통해 마지막 페이지인 여부를 판단할 수 있음
             val endOfPaginationReached = response.meta.isEnd
             val data = response.documents
@@ -50,8 +53,13 @@ class BlogSearchPagingSource(
                 nextKey = nextKey
             )
         } catch (exception: IOException) {
+            Timber.e(exception)
             LoadResult.Error(exception)
         } catch (exception: ResponseException) {
+            Timber.e(exception)
+            LoadResult.Error(exception)
+        } catch (exception: UnresolvedAddressException) {
+            Timber.e(exception)
             LoadResult.Error(exception)
         }
     }
