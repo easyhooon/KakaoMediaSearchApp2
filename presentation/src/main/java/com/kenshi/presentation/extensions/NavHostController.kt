@@ -1,4 +1,3 @@
-package com.kenshi.presentation.util
 
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController

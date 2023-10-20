@@ -1,4 +1,4 @@
-package com.kenshi.presentation.util
+package com.kenshi.presentation.extensions
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner

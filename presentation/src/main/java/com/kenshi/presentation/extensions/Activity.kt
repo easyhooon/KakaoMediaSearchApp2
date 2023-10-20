@@ -1,4 +1,4 @@
-package com.kenshi.presentation.util
+package com.kenshi.presentation.extensions
 
 import android.app.Activity
 import android.content.Context

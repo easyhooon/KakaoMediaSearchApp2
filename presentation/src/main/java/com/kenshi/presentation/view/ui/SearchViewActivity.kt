@@ -10,9 +10,9 @@ import com.google.android.material.tabs.TabLayout
 import com.kenshi.presentation.R
 import com.kenshi.presentation.SearchViewModel
 import com.kenshi.presentation.databinding.ActivitySearchViewBinding
-import com.kenshi.presentation.util.hideKeyboard
-import com.kenshi.presentation.util.repeatOnStarted
-import com.kenshi.presentation.util.textChangesToFlow
+import com.kenshi.presentation.extensions.hideKeyboard
+import com.kenshi.presentation.extensions.repeatOnStarted
+import com.kenshi.presentation.extensions.textChangesToFlow
 import com.kenshi.presentation.view.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

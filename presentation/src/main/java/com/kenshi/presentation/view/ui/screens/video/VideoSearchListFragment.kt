@@ -9,9 +9,9 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.kenshi.presentation.R
 import com.kenshi.presentation.databinding.FragmentVideoSearchListBinding
-import com.kenshi.presentation.util.hideKeyboard
-import com.kenshi.presentation.util.repeatOnStarted
-import com.kenshi.presentation.util.safeNavigate
+import com.kenshi.presentation.extensions.hideKeyboard
+import com.kenshi.presentation.extensions.repeatOnStarted
+import com.kenshi.presentation.extensions.safeNavigate
 import com.kenshi.presentation.view.adapter.SearchLoadStateAdapter
 import com.kenshi.presentation.view.adapter.VideoSearchAdapter
 import com.kenshi.presentation.view.base.BaseFragment

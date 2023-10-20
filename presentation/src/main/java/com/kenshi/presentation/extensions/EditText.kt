@@ -1,4 +1,4 @@
-package com.kenshi.presentation.util
+package com.kenshi.presentation.extensions
 
 import android.text.Editable
 import android.text.TextWatcher
