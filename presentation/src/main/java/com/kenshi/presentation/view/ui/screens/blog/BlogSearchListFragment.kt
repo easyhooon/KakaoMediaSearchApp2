@@ -71,6 +71,7 @@ class BlogSearchListFragment :
         }
     }
 
+    // TODO 검색 상황별 분기 (initial, NoResult)
     private fun initObserver() {
         repeatOnStarted {
             launch {
