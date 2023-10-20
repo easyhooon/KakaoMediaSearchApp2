@@ -64,6 +64,10 @@ class ImageSearchListFragment :
                 )
             findNavController().safeNavigate(action)
         }
+
+        binding.btnImageSearchRetry.setOnClickListener {
+            viewModel.refresh()
+        }
     }
 
     private fun initObserver() {
@@ -95,6 +99,12 @@ class ImageSearchListFragment :
                             btnImageSearchRetry.isVisible = isError
                         }
                     }
+            }
+
+            launch {
+                viewModel.refreshClickEvent.collect {
+                    imageSearchAdapter.retry()
+                }
             }
         }
     }

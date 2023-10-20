@@ -65,6 +65,10 @@ class BlogSearchListFragment :
                 )
             findNavController().safeNavigate(action)
         }
+
+        binding.btnBlogSearchRetry.setOnClickListener {
+            viewModel.refresh()
+        }
     }
 
     private fun initObserver() {
@@ -96,6 +100,12 @@ class BlogSearchListFragment :
                             btnBlogSearchRetry.isVisible = isError
                         }
                     }
+            }
+
+            launch {
+                viewModel.refreshClickEvent.collect {
+                    blogSearchAdapter.retry()
+                }
             }
         }
     }

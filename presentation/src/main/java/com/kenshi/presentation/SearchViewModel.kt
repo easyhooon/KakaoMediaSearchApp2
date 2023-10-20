@@ -21,8 +21,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.combineTransform
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -31,6 +34,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
@@ -53,6 +57,15 @@ class SearchViewModel @Inject constructor(
         .debounce(SEARCH_TIME_DELAY)
         .filter { it.isNotEmpty() }
         .distinctUntilChanged()
+
+    private val _refreshClickEvent = MutableSharedFlow<Unit>()
+    val refreshClickEvent: SharedFlow<Unit> = _refreshClickEvent.asSharedFlow()
+
+    fun refresh() {
+        viewModelScope.launch {
+            _refreshClickEvent.emit(Unit)
+        }
+    }
 
     fun updateSearchQuery(query: String) {
         _searchQuery.value = query

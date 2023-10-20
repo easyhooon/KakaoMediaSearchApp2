@@ -77,6 +77,10 @@ class VideoSearchListFragment :
                 findNavController().safeNavigate(action)
             }
         }
+
+        binding.btnVideoSearchRetry.setOnClickListener {
+            viewModel.refresh()
+        }
     }
 
     private fun initObserver() {
@@ -110,6 +114,12 @@ class VideoSearchListFragment :
                             btnVideoSearchRetry.isVisible = isError
                         }
                     }
+            }
+
+            launch {
+                viewModel.refreshClickEvent.collect {
+                    videoSearchAdapter.retry()
+                }
             }
         }
     }
