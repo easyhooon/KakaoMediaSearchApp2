@@ -17,6 +17,7 @@ import com.kenshi.presentation.view.base.BaseFragment
 import com.kenshi.presentation.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
 
 
@@ -57,24 +58,12 @@ class BlogSearchListFragment :
     }
 
     private fun initListener() {
-        blogSearchAdapter.apply {
-            addLoadStateListener { combinedLoadStates ->
-                val loadState = combinedLoadStates.source
-                val isListEmpty = blogSearchAdapter.itemCount < 1 &&
-                        loadState.refresh is LoadState.NotLoading &&
-                        loadState.append.endOfPaginationReached
-
-                binding.tvNoResult.isVisible = isListEmpty
-                binding.rvBlogSearch.isVisible = !isListEmpty
-                binding.pbBlogSearch.isVisible = loadState.refresh is LoadState.Loading
-            }
-            setOnItemClickListener { url->
-                val action =
-                    BlogSearchListFragmentDirections.actionBlogSearchListFragmentToSearchDetailFragment(
-                        url
-                    )
-                findNavController().safeNavigate(action)
-            }
+        blogSearchAdapter.setOnItemClickListener { url ->
+            val action =
+                BlogSearchListFragmentDirections.actionBlogSearchListFragmentToSearchDetailFragment(
+                    url
+                )
+            findNavController().safeNavigate(action)
         }
     }
 
@@ -84,6 +73,29 @@ class BlogSearchListFragment :
                 viewModel.searchBlogs.collectLatest {
                     blogSearchAdapter.submitData(it)
                 }
+            }
+
+            launch {
+                blogSearchAdapter.loadStateFlow
+                    .distinctUntilChangedBy { it.refresh }
+                    .collect { loadStates ->
+                        val loadState = loadStates.source
+
+                        val isListEmpty = blogSearchAdapter.itemCount < 1 &&
+                                loadState.refresh is LoadState.NotLoading &&
+                                loadState.append.endOfPaginationReached
+
+                        val isError = loadState.refresh is LoadState.Error
+
+                        binding.apply {
+                            pbBlogSearch.isVisible = loadState.refresh is LoadState.Loading
+                            tvBlogSearchNoResult.isVisible = isListEmpty
+                            rvBlogSearch.isVisible = !isListEmpty
+
+                            tvBlogSearchError.isVisible = isError
+                            btnBlogSearchRetry.isVisible = isError
+                        }
+                    }
             }
         }
     }

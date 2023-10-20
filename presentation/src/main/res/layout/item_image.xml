@@ -13,7 +13,8 @@
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearance="@style/ShapeAppearance.SmallComponent" />
+        app:shapeAppearance="@style/ShapeAppearance.SmallComponent"
+        tools:src="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/tv_image_title"

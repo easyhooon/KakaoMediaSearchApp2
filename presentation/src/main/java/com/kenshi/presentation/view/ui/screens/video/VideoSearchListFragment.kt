@@ -18,6 +18,7 @@ import com.kenshi.presentation.view.base.BaseFragment
 import com.kenshi.presentation.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -26,7 +27,7 @@ class VideoSearchListFragment :
 
     private val viewModel by activityViewModels<SearchViewModel>()
 
-    private val searchVideoAdapter by lazy {
+    private val videoSearchAdapter by lazy {
         VideoSearchAdapter()
     }
 
@@ -48,23 +49,23 @@ class VideoSearchListFragment :
                     DividerItemDecoration.VERTICAL
                 )
             )
-            adapter = searchVideoAdapter.withLoadStateFooter(
+            adapter = videoSearchAdapter.withLoadStateFooter(
                 footer = SearchLoadStateAdapter(
-                    searchVideoAdapter::retry
+                    videoSearchAdapter::retry
                 )
             )
         }
     }
 
     private fun initListener() {
-        searchVideoAdapter.apply {
+        videoSearchAdapter.apply {
             addLoadStateListener { combinedLoadStates ->
                 val loadState = combinedLoadStates.source
-                val isListEmpty = searchVideoAdapter.itemCount < 1 &&
+                val isListEmpty = videoSearchAdapter.itemCount < 1 &&
                         loadState.refresh is LoadState.NotLoading &&
                         loadState.append.endOfPaginationReached
 
-                binding.tvNoResult.isVisible = isListEmpty
+                binding.tvVideoSearchNoResult.isVisible = isListEmpty
                 binding.rvVideoSearch.isVisible = !isListEmpty
                 binding.pbVideoSearch.isVisible = loadState.refresh is LoadState.Loading
             }
@@ -82,10 +83,33 @@ class VideoSearchListFragment :
         repeatOnStarted {
             launch {
                 viewModel.searchVideos.collectLatest {
-                    searchVideoAdapter.submitData(it)
+                    videoSearchAdapter.submitData(it)
                     // 동작 안함
                     requireActivity().hideKeyboard()
                 }
+            }
+
+            launch {
+                videoSearchAdapter.loadStateFlow
+                    .distinctUntilChangedBy { it.refresh }
+                    .collect { loadStates ->
+                        val loadState = loadStates.source
+
+                        val isListEmpty = videoSearchAdapter.itemCount < 1 &&
+                                loadState.refresh is LoadState.NotLoading &&
+                                loadState.append.endOfPaginationReached
+
+                        val isError = loadState.refresh is LoadState.Error
+
+                        binding.apply {
+                            pbVideoSearch.isVisible = loadState.refresh is LoadState.Loading
+                            tvVideoSearchNoResult.isVisible = isListEmpty
+                            rvVideoSearch.isVisible = !isListEmpty
+
+                            tvVideoSearchError.isVisible = isError
+                            btnVideoSearchRetry.isVisible = isError
+                        }
+                    }
             }
         }
     }
