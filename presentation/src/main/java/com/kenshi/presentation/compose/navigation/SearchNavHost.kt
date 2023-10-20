@@ -13,7 +13,7 @@ import com.kenshi.presentation.compose.ui.screens.VideoScreen
 import com.kenshi.presentation.item.blog.BlogItem
 import com.kenshi.presentation.item.image.ImageItem
 import com.kenshi.presentation.item.video.VideoItem
-import com.kenshi.presentation.util.navigateSingleTopTo
+import navigateSingleTopTo
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 

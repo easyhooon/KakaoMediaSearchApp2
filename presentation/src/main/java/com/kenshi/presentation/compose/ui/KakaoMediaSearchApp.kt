@@ -24,13 +24,13 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.kenshi.presentation.R
+import com.kenshi.presentation.SearchViewModel
 import com.kenshi.presentation.compose.navigation.Blog
 import com.kenshi.presentation.compose.navigation.Image
 import com.kenshi.presentation.compose.navigation.SearchNavHost
 import com.kenshi.presentation.compose.navigation.Video
 import com.kenshi.presentation.compose.ui.components.SearchTabRow
-import com.kenshi.presentation.util.navigateSingleTopTo
-import com.kenshi.presentation.SearchViewModel
+import navigateSingleTopTo
 
 //TODO View 의 theme 적용
 @Composable
