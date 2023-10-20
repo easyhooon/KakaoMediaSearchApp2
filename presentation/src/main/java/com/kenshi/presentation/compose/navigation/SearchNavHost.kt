@@ -6,10 +6,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.paging.compose.LazyPagingItems
-import com.kenshi.presentation.compose.ui.screens.blog.BlogScreen
+import com.kenshi.presentation.compose.ui.screens.BlogScreen
 import com.kenshi.presentation.compose.ui.screens.detail.SearchDetailScreen
-import com.kenshi.presentation.compose.ui.screens.image.ImageScreen
-import com.kenshi.presentation.compose.ui.screens.video.VideoScreen
+import com.kenshi.presentation.compose.ui.screens.ImageScreen
+import com.kenshi.presentation.compose.ui.screens.VideoScreen
 import com.kenshi.presentation.item.blog.BlogItem
 import com.kenshi.presentation.item.image.ImageItem
 import com.kenshi.presentation.item.video.VideoItem
@@ -46,6 +46,7 @@ fun SearchNavHost(
         composable(route = Video.route) {
             VideoScreen(
                 videos = videos,
+                searchQuery = searchQuery,
                 debouncedSearchQuery = debouncedSearchQuery,
                 onClickVideoDetail = { urlType ->
                     val encodedUrl = URLEncoder.encode(urlType, StandardCharsets.UTF_8.toString())
@@ -56,6 +57,7 @@ fun SearchNavHost(
         composable(route = Image.route) {
             ImageScreen(
                 images = images,
+                searchQuery = searchQuery,
                 debouncedSearchQuery = debouncedSearchQuery,
                 onClickImageDetail = { urlType ->
                     val encodedUrl = URLEncoder.encode(urlType, StandardCharsets.UTF_8.toString())

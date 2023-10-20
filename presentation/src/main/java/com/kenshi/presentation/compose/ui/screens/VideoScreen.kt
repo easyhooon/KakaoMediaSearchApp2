@@ -1,4 +1,4 @@
-package com.kenshi.presentation.compose.ui.screens.video
+package com.kenshi.presentation.compose.ui.screens
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -6,9 +6,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
+import com.kenshi.presentation.R
 import com.kenshi.presentation.compose.ui.components.LoadStateFooter
 import com.kenshi.presentation.compose.ui.components.VideoCard
 import com.kenshi.presentation.item.video.VideoItem
@@ -16,12 +19,18 @@ import com.kenshi.presentation.item.video.VideoItem
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun VideoScreen(
-    debouncedSearchQuery: String,
     videos: LazyPagingItems<VideoItem>,
+    searchQuery: String,
+    debouncedSearchQuery: String,
     onClickVideoDetail: (String) -> Unit,
 ) {
     val listState = rememberLazyListState()
     val controller = LocalSoftwareKeyboardController.current
+
+    val isInitial = searchQuery.isEmpty()
+    val isEmpty = videos.itemCount == 0
+    val isLoading = videos.loadState.refresh is LoadState.Loading
+    val isError = videos.loadState.refresh is LoadState.Error
 
     // 트리거 되지 않음
 //    LaunchedEffect(key1 = videos) {
@@ -37,23 +46,42 @@ fun VideoScreen(
         controller?.hide()
     }
 
-    LazyColumn(state = listState) {
-        items(
-            count = videos.itemCount,
-            key = videos.itemKey(key = { video -> video.url }),
-            contentType = videos.itemContentType()
-        ) { index ->
-            val item = videos[index]
-            item?.let {
-                VideoCard(videoItem = it, onClick = onClickVideoDetail)
-            }
+    when  {
+        isInitial && isEmpty -> {
+            InitialScreen()
         }
 
-        item {
-            LoadStateFooter(
-                loadState = videos.loadState.append,
-                onRetry = { videos.retry() },
+        isLoading -> {
+            LoadingScreen()
+        }
+
+        isError -> {
+            ErrorScreen(
+                errorMessage = stringResource(id = R.string.video_error_message),
+                onClickRetryButton = { videos.retry() },
             )
+        }
+
+        else -> {
+            LazyColumn(state = listState) {
+                items(
+                    count = videos.itemCount,
+                    key = videos.itemKey(key = { video -> video.url }),
+                    contentType = videos.itemContentType()
+                ) { index ->
+                    val item = videos[index]
+                    item?.let {
+                        VideoCard(videoItem = it, onClick = onClickVideoDetail)
+                    }
+                }
+
+                item {
+                    LoadStateFooter(
+                        loadState = videos.loadState.append,
+                        onRetry = { videos.retry() },
+                    )
+                }
+            }
         }
     }
 }
