@@ -18,7 +18,7 @@ import com.kenshi.presentation.item.image.ImageItem
 fun ImageScreen(
     debouncedSearchQuery: String,
     images: LazyPagingItems<ImageItem>,
-    onClickSeeImageDetail: (String) -> Unit,
+    onClickImageDetail: (String) -> Unit,
 ) {
     val listState = rememberLazyListState()
     val controller = LocalSoftwareKeyboardController.current
@@ -36,7 +36,7 @@ fun ImageScreen(
         ) { index ->
             val item = images[index]
             item?.let {
-                ImageCard(imageItem = it, onClick = onClickSeeImageDetail)
+                ImageCard(imageItem = it, onClick = onClickImageDetail)
             }
         }
 

@@ -19,7 +19,7 @@ fun BlogScreen(
     searchQuery: String,
     debouncedSearchQuery: String,
     blogs: LazyPagingItems<BlogItem>,
-    onClickSeeBlogDetail: (String) -> Unit,
+    onClickBlogDetail: (String) -> Unit,
 ) {
     val listState = rememberLazyListState()
     val controller = LocalSoftwareKeyboardController.current
@@ -37,7 +37,7 @@ fun BlogScreen(
         ) { index ->
             val item = blogs[index]
             item?.let {
-                BlogCard(blogItem = it, searchQuery, onClick = onClickSeeBlogDetail)
+                BlogCard(blogItem = it, searchQuery, onClick = onClickBlogDetail)
             }
         }
 

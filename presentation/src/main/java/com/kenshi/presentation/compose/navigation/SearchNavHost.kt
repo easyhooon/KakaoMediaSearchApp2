@@ -37,7 +37,7 @@ fun SearchNavHost(
                 blogs = blogs,
                 searchQuery = searchQuery,
                 debouncedSearchQuery = debouncedSearchQuery,
-                onClickSeeBlogDetail = { urlType ->
+                onClickBlogDetail = { urlType ->
                     val encodedUrl = URLEncoder.encode(urlType, StandardCharsets.UTF_8.toString())
                     navController.navigateToDetail(encodedUrl)
                 }
@@ -47,7 +47,7 @@ fun SearchNavHost(
             VideoScreen(
                 videos = videos,
                 debouncedSearchQuery = debouncedSearchQuery,
-                onClickSeeVideoDetail = { urlType ->
+                onClickVideoDetail = { urlType ->
                     val encodedUrl = URLEncoder.encode(urlType, StandardCharsets.UTF_8.toString())
                     navController.navigateToDetail(encodedUrl)
                 }
@@ -57,7 +57,7 @@ fun SearchNavHost(
             ImageScreen(
                 images = images,
                 debouncedSearchQuery = debouncedSearchQuery,
-                onClickSeeImageDetail = { urlType ->
+                onClickImageDetail = { urlType ->
                     val encodedUrl = URLEncoder.encode(urlType, StandardCharsets.UTF_8.toString())
                     navController.navigateToDetail(encodedUrl)
                 }

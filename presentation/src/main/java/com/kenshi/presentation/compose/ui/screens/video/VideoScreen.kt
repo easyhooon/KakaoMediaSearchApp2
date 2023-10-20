@@ -18,7 +18,7 @@ import com.kenshi.presentation.item.video.VideoItem
 fun VideoScreen(
     debouncedSearchQuery: String,
     videos: LazyPagingItems<VideoItem>,
-    onClickSeeVideoDetail: (String) -> Unit,
+    onClickVideoDetail: (String) -> Unit,
 ) {
     val listState = rememberLazyListState()
     val controller = LocalSoftwareKeyboardController.current
@@ -45,7 +45,7 @@ fun VideoScreen(
         ) { index ->
             val item = videos[index]
             item?.let {
-                VideoCard(videoItem = it, onClick = onClickSeeVideoDetail)
+                VideoCard(videoItem = it, onClick = onClickVideoDetail)
             }
         }
 
