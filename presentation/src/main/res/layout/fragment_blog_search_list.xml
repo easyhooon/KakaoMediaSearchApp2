@@ -62,6 +62,6 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_blog_search_error" />
+        app:layout_constraintTop_toBottomOf="@id/tv_blog_search_error" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
