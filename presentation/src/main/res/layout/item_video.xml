@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearance="@style/ShapeAppearance.SmallComponent"
-        tools:src="@tools:sample/avatars"/>
+        tools:src="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/tv_video_playtime"
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:background="@color/gray_800"
+        android:background="@drawable/bg_rounded_gray_800"
         android:padding="2dp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/iv_video_thumbnail"
