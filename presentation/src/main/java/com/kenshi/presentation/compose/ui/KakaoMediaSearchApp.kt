@@ -32,9 +32,7 @@ import com.kenshi.presentation.compose.ui.components.SearchTabRow
 import com.kenshi.presentation.util.navigateSingleTopTo
 import com.kenshi.presentation.SearchViewModel
 
-//TODO Compose,View 둘다
-// 인터넷 연결이 안되어있을 경우 failed with exception: java.nio.channels.UnresolvedAddressException
-// View 의 theme 적용
+//TODO View 의 theme 적용
 @Composable
 fun KakaoMediaSearchApp(
     viewModel: SearchViewModel = hiltViewModel()
