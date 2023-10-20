@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ui.screens.image.ImageSearchListFragment">
+    tools:context=".view.ui.screens.ImageSearchListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_image_search"

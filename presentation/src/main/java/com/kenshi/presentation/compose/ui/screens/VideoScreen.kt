@@ -2,6 +2,7 @@ package com.kenshi.presentation.compose.ui.screens
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -14,6 +15,7 @@ import androidx.paging.compose.itemKey
 import com.kenshi.presentation.R
 import com.kenshi.presentation.compose.ui.components.LoadStateFooter
 import com.kenshi.presentation.compose.ui.components.VideoCard
+import com.kenshi.presentation.compose.ui.theme.Gray300
 import com.kenshi.presentation.item.video.VideoItem
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -73,6 +75,8 @@ fun VideoScreen(
                     item?.let {
                         VideoCard(videoItem = it, onClick = onClickVideoDetail)
                     }
+
+                    Divider(color = Gray300)
                 }
 
                 item {

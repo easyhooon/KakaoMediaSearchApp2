@@ -1,4 +1,4 @@
-package com.kenshi.presentation.view.ui.screens.image
+package com.kenshi.presentation.view.ui.screens
 
 import android.os.Bundle
 import android.view.View
@@ -6,31 +6,32 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.kenshi.presentation.R
-import com.kenshi.presentation.databinding.FragmentImageSearchListBinding
+import com.kenshi.presentation.databinding.FragmentBlogSearchListBinding
 import com.kenshi.presentation.extensions.repeatOnStarted
 import com.kenshi.presentation.extensions.safeNavigate
-import com.kenshi.presentation.view.adapter.ImageSearchAdapter
+import com.kenshi.presentation.view.adapter.BlogSearchAdapter
 import com.kenshi.presentation.view.adapter.SearchLoadStateAdapter
 import com.kenshi.presentation.view.base.BaseFragment
 import com.kenshi.presentation.SearchViewModel
+import com.kenshi.presentation.extensions.addDivider
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
 
+
 @AndroidEntryPoint
-class ImageSearchListFragment :
-    BaseFragment<FragmentImageSearchListBinding>(R.layout.fragment_image_search_list) {
+class BlogSearchListFragment :
+    BaseFragment<FragmentBlogSearchListBinding>(R.layout.fragment_blog_search_list) {
 
     private val viewModel by activityViewModels<SearchViewModel>()
 
-    private val imageSearchAdapter by lazy {
-        ImageSearchAdapter()
+    private val blogSearchAdapter by lazy {
+        BlogSearchAdapter()
     }
 
-    override fun getViewBinding() = FragmentImageSearchListBinding.inflate(layoutInflater)
+    override fun getViewBinding() = FragmentBlogSearchListBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,69 +42,65 @@ class ImageSearchListFragment :
     }
 
     private fun initView() {
-        binding.rvImageSearch.apply {
-            addItemDecoration(
-                DividerItemDecoration(
-                    requireContext(),
-                    DividerItemDecoration.VERTICAL
-                )
-            )
-            adapter = imageSearchAdapter.withLoadStateFooter(
+        binding.rvBlogSearch.apply {
+            adapter = blogSearchAdapter.withLoadStateFooter(
                 footer = SearchLoadStateAdapter(
-                    imageSearchAdapter::retry
+                    blogSearchAdapter::retry
                 )
             )
+            addDivider(R.color.gray_300)
         }
     }
 
     private fun initListener() {
-        imageSearchAdapter.setOnItemClickListener { url ->
+        blogSearchAdapter.setOnItemClickListener { url ->
             val action =
-                ImageSearchListFragmentDirections.actionImageSearchListFragmentToSearchDetailFragment(
+                BlogSearchListFragmentDirections.actionBlogSearchListFragmentToSearchDetailFragment(
                     url
                 )
             findNavController().safeNavigate(action)
         }
 
-        binding.btnImageSearchRetry.setOnClickListener {
+        binding.btnBlogSearchRetry.setOnClickListener {
             viewModel.refresh()
         }
     }
 
+    // TODO 검색 상황별 분기 (initial, NoResult)
     private fun initObserver() {
         repeatOnStarted {
             launch {
-                viewModel.searchImages.collectLatest {
-                    imageSearchAdapter.submitData(it)
+                viewModel.searchBlogs.collectLatest {
+                    blogSearchAdapter.submitData(it)
                 }
             }
 
             launch {
-                imageSearchAdapter.loadStateFlow
+                blogSearchAdapter.loadStateFlow
                     .distinctUntilChangedBy { it.refresh }
                     .collect { loadStates ->
                         val loadState = loadStates.source
 
-                        val isListEmpty = imageSearchAdapter.itemCount < 1 &&
+                        val isListEmpty = blogSearchAdapter.itemCount < 1 &&
                                 loadState.refresh is LoadState.NotLoading &&
                                 loadState.append.endOfPaginationReached
 
                         val isError = loadState.refresh is LoadState.Error
 
                         binding.apply {
-                            pbImageSearch.isVisible = loadState.refresh is LoadState.Loading
-                            tvImageSearchNoResult.isVisible = isListEmpty
-                            rvImageSearch.isVisible = !isListEmpty
+                            pbBlogSearch.isVisible = loadState.refresh is LoadState.Loading
+                            tvBlogSearchNoResult.isVisible = isListEmpty
+                            rvBlogSearch.isVisible = !isListEmpty
 
-                            tvImageSearchError.isVisible = isError
-                            btnImageSearchRetry.isVisible = isError
+                            tvBlogSearchError.isVisible = isError
+                            btnBlogSearchRetry.isVisible = isError
                         }
                     }
             }
 
             launch {
                 viewModel.refreshClickEvent.collect {
-                    imageSearchAdapter.retry()
+                    blogSearchAdapter.retry()
                 }
             }
         }

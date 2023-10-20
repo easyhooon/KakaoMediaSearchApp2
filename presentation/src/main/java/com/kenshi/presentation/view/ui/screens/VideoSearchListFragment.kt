@@ -1,4 +1,4 @@
-package com.kenshi.presentation.view.ui.screens.video
+package com.kenshi.presentation.view.ui.screens
 
 import android.os.Bundle
 import android.view.View
@@ -6,16 +6,16 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.kenshi.presentation.R
+import com.kenshi.presentation.SearchViewModel
 import com.kenshi.presentation.databinding.FragmentVideoSearchListBinding
+import com.kenshi.presentation.extensions.addDivider
 import com.kenshi.presentation.extensions.hideKeyboard
 import com.kenshi.presentation.extensions.repeatOnStarted
 import com.kenshi.presentation.extensions.safeNavigate
 import com.kenshi.presentation.view.adapter.SearchLoadStateAdapter
 import com.kenshi.presentation.view.adapter.VideoSearchAdapter
 import com.kenshi.presentation.view.base.BaseFragment
-import com.kenshi.presentation.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -43,17 +43,12 @@ class VideoSearchListFragment :
 
     private fun initView() {
         binding.rvVideoSearch.apply {
-            addItemDecoration(
-                DividerItemDecoration(
-                    requireContext(),
-                    DividerItemDecoration.VERTICAL
-                )
-            )
             adapter = videoSearchAdapter.withLoadStateFooter(
                 footer = SearchLoadStateAdapter(
                     videoSearchAdapter::retry
                 )
             )
+            addDivider(R.color.gray_300)
         }
     }
 
