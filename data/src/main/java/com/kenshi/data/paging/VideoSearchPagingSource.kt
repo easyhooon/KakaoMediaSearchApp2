@@ -29,19 +29,19 @@ class VideoSearchPagingSource(
             val pageNumber = params.key ?: STARTING_PAGE_INDEX
             val response =
                 searchService.getVideoSearchResponse(query, sort, pageNumber, params.loadSize)
+
             val endOfPaginationReached = response.meta.isEnd
-            val data = response.documents
-            val prevKey = if (pageNumber == STARTING_PAGE_INDEX)
-                null else pageNumber - 1
-            val nextKey = if (endOfPaginationReached) {
-                null
-            } else {
-                pageNumber + (params.loadSize / PAGING_SIZE)
-            }
+
             LoadResult.Page(
-                data = data,
-                prevKey = prevKey,
-                nextKey = nextKey
+                data = response.documents,
+                prevKey = if (pageNumber == STARTING_PAGE_INDEX) null else pageNumber - 1,
+                nextKey = if (endOfPaginationReached) {
+                    null
+                } else {
+                    // initial load size = 3 * NETWORK_PAGE_SIZE
+                    // ensure we're not requesting duplicating items, at the 2nd request
+                    pageNumber + (params.loadSize / PAGING_SIZE)
+                },
             )
         } catch (exception: IOException) {
             Timber.e(exception)

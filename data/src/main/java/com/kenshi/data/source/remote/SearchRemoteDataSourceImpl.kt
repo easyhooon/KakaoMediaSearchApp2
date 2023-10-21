@@ -34,8 +34,6 @@ class SearchRemoteDataSourceImpl @Inject constructor(
                 // 화면에 표시 되지 않는 항목은 null로 표시
                 // 필요할 때 필요한 만큼만 로딩 하려면 false
                 enablePlaceholders = false,
-                // 페이저가 메모리에 가지고 있을 수 있는 최대 개수, 페이지 사이즈의 2~3배 정도
-                maxSize = Constants.PAGING_SIZE * 3
             ),
             // api 호출 결과를 팩토리에 전달
             pagingSourceFactory = pagingSourceFactory
@@ -59,8 +57,6 @@ class SearchRemoteDataSourceImpl @Inject constructor(
                 // 화면에 표시 되지 않는 항목은 null로 표시
                 // 필요할 때 필요한 만큼만 로딩 하려면 false
                 enablePlaceholders = false,
-                // 페이저가 메모리에 가지고 있을 수 있는 최대 개수, 페이지 사이즈의 2~3배 정도
-                maxSize = Constants.PAGING_SIZE * 3
             ),
             // api 호출 결과를 팩토리에 전달
             pagingSourceFactory = pagingSourceFactory
@@ -84,8 +80,6 @@ class SearchRemoteDataSourceImpl @Inject constructor(
                 // 화면에 표시 되지 않는 항목은 null로 표시
                 // 필요할 때 필요한 만큼만 로딩 하려면 false
                 enablePlaceholders = false,
-                // 페이저가 메모리에 가지고 있을 수 있는 최대 개수, 페이지 사이즈의 2~3배 정도
-                maxSize = Constants.PAGING_SIZE * 3
             ),
             // api 호출 결과를 팩토리에 전달
             pagingSourceFactory = pagingSourceFactory
