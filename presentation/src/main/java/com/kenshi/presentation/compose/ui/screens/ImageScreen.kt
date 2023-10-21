@@ -49,7 +49,7 @@ fun ImageScreen(
         }
 
         isError -> {
-            ErrorScreen(
+            NetworkErrorScreen(
                 errorMessage = stringResource(id = R.string.image_error_message),
                 onClickRetryButton = { images.retry() },
             )
@@ -73,7 +73,7 @@ fun ImageScreen(
                 item {
                     LoadStateFooter(
                         loadState = images.loadState.append,
-                        onRetry = { images.retry() },
+                        onRetryClick = { images.retry() },
                     )
                 }
             }

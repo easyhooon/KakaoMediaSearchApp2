@@ -14,4 +14,5 @@
     <string name="no_result">결과가 존재하지 않습니다</string>
     <string name="search_message">검색어를 입력 해주세요</string>
     <string name="no_result_message">검색 결과가 존재하지 않습니다</string>
+    <string name="end_message">모든 항목을 조회 하였습니다</string>
 </resources>

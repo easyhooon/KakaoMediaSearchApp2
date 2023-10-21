@@ -58,7 +58,7 @@ fun VideoScreen(
         }
 
         isError -> {
-            ErrorScreen(
+            NetworkErrorScreen(
                 errorMessage = stringResource(id = R.string.video_error_message),
                 onClickRetryButton = { videos.retry() },
             )
@@ -82,7 +82,7 @@ fun VideoScreen(
                 item {
                     LoadStateFooter(
                         loadState = videos.loadState.append,
-                        onRetry = { videos.retry() },
+                        onRetryClick = { videos.retry() },
                     )
                 }
             }

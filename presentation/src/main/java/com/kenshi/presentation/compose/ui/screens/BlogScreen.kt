@@ -50,7 +50,7 @@ fun BlogScreen(
         }
 
         isError -> {
-            ErrorScreen(
+            NetworkErrorScreen(
                 errorMessage = stringResource(id = R.string.blog_error_message),
                 onClickRetryButton = { blogs.retry() },
             )
@@ -78,7 +78,7 @@ fun BlogScreen(
                 item {
                     LoadStateFooter(
                         loadState = blogs.loadState.append,
-                        onRetry = { blogs.retry() },
+                        onRetryClick = { blogs.retry() },
                     )
                 }
             }

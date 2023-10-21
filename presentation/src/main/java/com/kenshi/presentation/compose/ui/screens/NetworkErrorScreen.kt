@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.kenshi.presentation.R
 
 @Composable
-fun ErrorScreen(
+fun NetworkErrorScreen(
     modifier: Modifier = Modifier,
     errorMessage: String,
     onClickRetryButton: () -> Unit,
