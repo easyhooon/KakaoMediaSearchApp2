@@ -7,17 +7,16 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.kenshi.presentation.R
+import com.kenshi.presentation.SearchViewModel
 import com.kenshi.presentation.databinding.FragmentBlogSearchListBinding
+import com.kenshi.presentation.extensions.addDivider
 import com.kenshi.presentation.extensions.repeatOnStarted
 import com.kenshi.presentation.extensions.safeNavigate
 import com.kenshi.presentation.view.adapter.BlogSearchAdapter
 import com.kenshi.presentation.view.adapter.SearchLoadStateAdapter
 import com.kenshi.presentation.view.base.BaseFragment
-import com.kenshi.presentation.SearchViewModel
-import com.kenshi.presentation.extensions.addDivider
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
 
 
@@ -76,26 +75,24 @@ class BlogSearchListFragment :
             }
 
             launch {
-                blogSearchAdapter.loadStateFlow
-                    .distinctUntilChangedBy { it.refresh }
-                    .collect { loadStates ->
-                        val loadState = loadStates.source
+                blogSearchAdapter.loadStateFlow.collectLatest { loadStates ->
+                    val loadState = loadStates.source
 
-                        val isListEmpty = blogSearchAdapter.itemCount < 1 &&
-                                loadState.refresh is LoadState.NotLoading &&
-                                loadState.append.endOfPaginationReached
+                    val isListEmpty = blogSearchAdapter.itemCount < 1 &&
+                            loadState.refresh is LoadState.NotLoading &&
+                            loadState.append.endOfPaginationReached
 
-                        val isError = loadState.refresh is LoadState.Error
+                    val isError = loadState.refresh is LoadState.Error
 
-                        binding.apply {
-                            pbBlogSearch.isVisible = loadState.refresh is LoadState.Loading
-                            tvBlogSearchNoResult.isVisible = isListEmpty
-                            rvBlogSearch.isVisible = !isListEmpty
+                    binding.apply {
+                        pbBlogSearch.isVisible = loadState.refresh is LoadState.Loading
+                        tvBlogSearchNoResult.isVisible = isListEmpty
+                        rvBlogSearch.isVisible = !isListEmpty
 
-                            tvBlogSearchError.isVisible = isError
-                            btnBlogSearchRetry.isVisible = isError
-                        }
+                        tvBlogSearchError.isVisible = isError
+                        btnBlogSearchRetry.isVisible = isError
                     }
+                }
             }
 
             launch {

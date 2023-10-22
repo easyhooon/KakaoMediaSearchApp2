@@ -18,7 +18,6 @@ import com.kenshi.presentation.view.adapter.VideoSearchAdapter
 import com.kenshi.presentation.view.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -89,26 +88,24 @@ class VideoSearchListFragment :
             }
 
             launch {
-                videoSearchAdapter.loadStateFlow
-                    .distinctUntilChangedBy { it.refresh }
-                    .collect { loadStates ->
-                        val loadState = loadStates.source
+                videoSearchAdapter.loadStateFlow.collectLatest { loadStates ->
+                    val loadState = loadStates.source
 
-                        val isListEmpty = videoSearchAdapter.itemCount < 1 &&
-                                loadState.refresh is LoadState.NotLoading &&
-                                loadState.append.endOfPaginationReached
+                    val isListEmpty = videoSearchAdapter.itemCount < 1 &&
+                            loadState.refresh is LoadState.NotLoading &&
+                            loadState.append.endOfPaginationReached
 
-                        val isError = loadState.refresh is LoadState.Error
+                    val isError = loadState.refresh is LoadState.Error
 
-                        binding.apply {
-                            pbVideoSearch.isVisible = loadState.refresh is LoadState.Loading
-                            tvVideoSearchNoResult.isVisible = isListEmpty
-                            rvVideoSearch.isVisible = !isListEmpty
+                    binding.apply {
+                        pbVideoSearch.isVisible = loadState.refresh is LoadState.Loading
+                        tvVideoSearchNoResult.isVisible = isListEmpty
+                        rvVideoSearch.isVisible = !isListEmpty
 
-                            tvVideoSearchError.isVisible = isError
-                            btnVideoSearchRetry.isVisible = isError
-                        }
+                        tvVideoSearchError.isVisible = isError
+                        btnVideoSearchRetry.isVisible = isError
                     }
+                }
             }
 
             launch {

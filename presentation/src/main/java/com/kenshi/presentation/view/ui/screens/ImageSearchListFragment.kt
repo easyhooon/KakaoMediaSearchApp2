@@ -7,17 +7,16 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.kenshi.presentation.R
+import com.kenshi.presentation.SearchViewModel
 import com.kenshi.presentation.databinding.FragmentImageSearchListBinding
+import com.kenshi.presentation.extensions.addDivider
 import com.kenshi.presentation.extensions.repeatOnStarted
 import com.kenshi.presentation.extensions.safeNavigate
 import com.kenshi.presentation.view.adapter.ImageSearchAdapter
 import com.kenshi.presentation.view.adapter.SearchLoadStateAdapter
 import com.kenshi.presentation.view.base.BaseFragment
-import com.kenshi.presentation.SearchViewModel
-import com.kenshi.presentation.extensions.addDivider
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -74,26 +73,24 @@ class ImageSearchListFragment :
             }
 
             launch {
-                imageSearchAdapter.loadStateFlow
-                    .distinctUntilChangedBy { it.refresh }
-                    .collect { loadStates ->
-                        val loadState = loadStates.source
+                imageSearchAdapter.loadStateFlow.collectLatest { loadStates ->
+                    val loadState = loadStates.source
 
-                        val isListEmpty = imageSearchAdapter.itemCount < 1 &&
-                                loadState.refresh is LoadState.NotLoading &&
-                                loadState.append.endOfPaginationReached
+                    val isListEmpty = imageSearchAdapter.itemCount < 1 &&
+                            loadState.refresh is LoadState.NotLoading &&
+                            loadState.append.endOfPaginationReached
 
-                        val isError = loadState.refresh is LoadState.Error
+                    val isError = loadState.refresh is LoadState.Error
 
-                        binding.apply {
-                            pbImageSearch.isVisible = loadState.refresh is LoadState.Loading
-                            tvImageSearchNoResult.isVisible = isListEmpty
-                            rvImageSearch.isVisible = !isListEmpty
+                    binding.apply {
+                        pbImageSearch.isVisible = loadState.refresh is LoadState.Loading
+                        tvImageSearchNoResult.isVisible = isListEmpty
+                        rvImageSearch.isVisible = !isListEmpty
 
-                            tvImageSearchError.isVisible = isError
-                            btnImageSearchRetry.isVisible = isError
-                        }
+                        tvImageSearchError.isVisible = isError
+                        btnImageSearchRetry.isVisible = isError
                     }
+                }
             }
 
             launch {
