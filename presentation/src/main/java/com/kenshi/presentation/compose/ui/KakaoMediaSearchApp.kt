@@ -55,8 +55,7 @@ fun KakaoMediaSearchApp(
                     .padding(8.dp),
                 value = searchQuery,
                 singleLine = true,
-                onValueChange = {
-                    val query = it.trim()
+                onValueChange = { query ->
                     viewModel.updateSearchQuery(query)
                 },
                 leadingIcon = {
