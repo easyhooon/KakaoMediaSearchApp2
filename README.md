@@ -37,9 +37,14 @@ KAKAO_API_KEY="KakaoAK c9bf3b615072a170b64208b1eee62e0d"
 - [ ] 정렬 기능 구현 (최신순, 정확도순)
 - [ ] 기존의 뷰의 Theme 을 Compose Theme 으로 그대로 옮겨, 똑같은 UI 만들기 
 - [ ] Convention Plugin 적용
-- [ ] 테스트 코드 작성 
+- [ ] 테스트 코드 작성
 
 ## Features
+
+|동영상 검색|블로그, 사진 검색|검색 리스트 갱신, 다시 시도|
+|:-----:|:-----:|:-----:|
+|<img width="240" src="https://github.com/easyhooon/KakaoMediaSearchApp2/assets/51016231/fec5fba4-3830-4360-bbf7-ce2b058bdb1d.gif">|<img width="240" src="https://github.com/easyhooon/KakaoMediaSearchApp2/assets/51016231/97662804-71ef-433d-b7d6-be70806d5dcc.gif">|<img width="240" src="https://github.com/easyhooon/KakaoMediaSearchApp2/assets/51016231/3a5c7924-c6d8-43fb-89f4-84e85b200095.gif">|
+
 
 ## Development
 
