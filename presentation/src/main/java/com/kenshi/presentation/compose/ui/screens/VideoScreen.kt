@@ -18,6 +18,7 @@ import com.kenshi.presentation.compose.ui.components.VideoCard
 import com.kenshi.presentation.compose.ui.theme.Gray300
 import com.kenshi.presentation.item.video.VideoItem
 
+//TODO 키보드가 내려가지 않음
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun VideoScreen(
@@ -48,7 +49,7 @@ fun VideoScreen(
         controller?.hide()
     }
 
-    when  {
+    when {
         isInitial && isEmpty -> {
             InitialScreen()
         }
