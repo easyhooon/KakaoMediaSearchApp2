@@ -18,7 +18,8 @@ import com.kenshi.presentation.compose.ui.components.VideoCard
 import com.kenshi.presentation.compose.ui.theme.Gray300
 import com.kenshi.presentation.item.video.VideoItem
 
-//TODO 키보드가 내려가지 않음
+//TODO 첫번째 검색 이후 키보드가 내려가지 않음
+// 이후 검색어를 변경하면 키보드가 정상적으로 내려감
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun VideoScreen(
