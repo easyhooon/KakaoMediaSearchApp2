@@ -45,6 +45,11 @@ KAKAO_API_KEY="KakaoAK c9bf3b615072a170b64208b1eee62e0d"
 |:-----:|:-----:|:-----:|
 |<img width="240" src="https://github.com/easyhooon/KakaoMediaSearchApp2/assets/51016231/fec5fba4-3830-4360-bbf7-ce2b058bdb1d.gif">|<img width="240" src="https://github.com/easyhooon/KakaoMediaSearchApp2/assets/51016231/97662804-71ef-433d-b7d6-be70806d5dcc.gif">|<img width="240" src="https://github.com/easyhooon/KakaoMediaSearchApp2/assets/51016231/3a5c7924-c6d8-43fb-89f4-84e85b200095.gif">|
 
+## Article
+[Jetpack Compose에서 Paging LoadStateFooter를 구현 하는 방법](https://velog.io/@mraz3068/Jetpack-Compose-Paging3-LoadStateFooter-Implementation)
+[Jetpack Compose 에서 TextField를 이용하여 자동 검색 기능 구현 하기 (기존 xml 에서의 방식과 비교) - 2](https://velog.io/@mraz3068/Implementation-Auto-Search-Feature-with-TextField-in-Jetpack-Compose-2)
+[Jetpack Compose 에서 TextField를 이용하여 자동 검색 기능 구현 하기 (기존 xml 에서의 방식과 비교) - 1](https://velog.io/@mraz3068/Implementation-Auto-Search-Feature-with-TextField-in-Jetpack-Compose-1)
+
 
 ## Development
 
