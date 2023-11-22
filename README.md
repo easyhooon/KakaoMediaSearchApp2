@@ -52,6 +52,8 @@ KAKAO_API_KEY="KakaoAK c9bf3b615072a170b64208b1eee62e0d"
 
 [Jetpack Compose 에서 TextField를 이용하여 자동 검색 기능 구현 하기 (기존 xml 에서의 방식과 비교) - 1](https://velog.io/@mraz3068/Implementation-Auto-Search-Feature-with-TextField-in-Jetpack-Compose-1)
 
+[Compose Navigation Argument 로 url 전달하기](https://velog.io/@mraz3068/Passing-URL-as-Compose-Navigation-Argument)
+
 
 ## Development
 
