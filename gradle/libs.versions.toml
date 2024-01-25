@@ -40,7 +40,7 @@ timber = "5.0.1"
 desugar-jdk = "2.0.3"
 ktor = "2.3.5"
 slf4j = "1.7.36"
-accompanist-webview = "0.31.3-beta"
+accompanist-webview = "0.34.0"
 
 [libraries]
 
