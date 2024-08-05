@@ -9,7 +9,7 @@ kotlinx-coroutines = "1.7.3"
 kotlinx-serialization = "1.6.0"
 kotlinx-datetime = "0.4.0"
 
-android-hilt = "2.48"
+android-hilt = "2.52"
 android-material = "1.10.0"
 
 androidx-activity-compose = "1.8.0"
